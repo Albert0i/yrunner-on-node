@@ -1,0 +1,37 @@
+### runSelectSQL
+POST http://localhost:8989/api/v1/yr/runselectsql
+Content-Type: application/json
+Authorization: Bearer openSesame
+
+{
+  "cmdText": "select * from tbrelcod where relcod='99'"
+}
+
+### runValueSQL
+POST http://localhost:8989/api/v1/yr/runvaluesql
+Content-Type: application/json
+Authorization: Bearer openSesame
+
+{
+  "cmdText": "select update_ident from tbrelcod where relcod='99'"
+}
+
+
+### runSQL
+POST http://localhost:8989/api/v1/yr/runsql
+Content-Type: application/json
+Authorization: Bearer openSesame
+
+{
+  "cmdTexts": [
+      "update tbrelcod set update_ident=update_ident+1 where relcod='99'",
+      "update tbrelcod set update_ident=update_ident+1 where relcod='99'",
+      "update tbrelcod set update_ident=update_ident+1 where relcod='99'"
+      ]
+}
+
+
+# 
+# REST Client for Visual Studio Code
+# https://marketplace.visualstudio.com/items?itemName=humao.rest-client
+#
