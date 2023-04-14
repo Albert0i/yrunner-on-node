@@ -16,7 +16,6 @@ Authorization: Bearer openSesame
   "cmdText": "select update_ident from tbrelcod where relcod='99'"
 }
 
-
 ### runSQL
 POST http://localhost:8989/api/v1/yr/runsql
 Content-Type: application/json
@@ -30,7 +29,6 @@ Authorization: Bearer openSesame
       ]
 }
 
-
 ### runInsertSQLYieldRowID
 POST http://localhost:8989/api/v1/yr/runinsertsqlyieldrowid
 Content-Type: application/json
@@ -40,6 +38,48 @@ Authorization: Bearer openSesame
   "cmdText": "insert into tausers(tunamec, tunamep) values('測試一', 'Test1')",
   "id": "tuid"
 }
+
+
+### RESTful API 
+
+### Get all 
+GET http://localhost:8989/api/v1/yr/tbrelcod
+Content-Type: application/json
+Authorization: Bearer openSesame
+
+### Get one
+
+GET http://localhost:8989/api/v1/yr/tbrelcod/99?keyname=relcod&keytype=string
+Content-Type: application/json
+Authorization: Bearer openSesame
+
+### Create one 
+POST http://localhost:8989/api/v1/yr/tbrelcod
+Content-Type: application/json
+Authorization: Bearer openSesame
+
+{ 
+    "relcod" : { "type": "string", "value" : "KK" },
+    "reldes" : { "type": "string", "value" : "testing 1" },
+    "reldesc" : { "type": "string", "value" : "測試一" },
+    "update_ident" : { "type" : "number", "value": 0 }
+}
+
+### Update one
+GET http://localhost:8989/api/v1/yr/tbrelcod/KK?keyname=relcod&keytype=string
+Content-Type: application/json
+Authorization: Bearer openSesame
+
+{ 
+    "reldes" : { "type": "string", "value" : "testing 2" },
+    "reldesc" : { "type": "string", "value" : "測試二" },
+    "update_ident" : { "type" : "number", "value": 0 }
+}
+
+### Delete one 
+DELETE http://localhost:8989/api/v1/yr/tbrelcod/KK?keyname=relcod&keytype=string
+Content-Type: application/json
+Authorization: Bearer openSesame
 
 # 
 # REST Client for Visual Studio Code
