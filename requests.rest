@@ -1,7 +1,7 @@
 ### runSelectSQL
 GET http://localhost:8989/api/v1/yr/runselectsql
 Content-Type: application/json
-Authorization: Bearer openSesame
+Authorization: Bearer VEUdEii4n7nCvofaBRJEC
 
 {
   "cmdText": "select * from tbrelcod"
@@ -10,7 +10,7 @@ Authorization: Bearer openSesame
 ### runValueSQL
 GET http://localhost:8989/api/v1/yr/runvaluesql
 Content-Type: application/json
-Authorization: Bearer openSesame
+Authorization: Bearer VEUdEii4n7nCvofaBRJEC
 
 {
   "cmdText": "select update_ident from tbrelcod where relcod='99'"
@@ -19,7 +19,7 @@ Authorization: Bearer openSesame
 ### runSQL
 POST http://localhost:8989/api/v1/yr/runsql
 Content-Type: application/json
-Authorization: Bearer openSesame
+Authorization: Bearer VEUdEii4n7nCvofaBRJEC
 
 {
   "cmdTexts": [
@@ -32,7 +32,7 @@ Authorization: Bearer openSesame
 ### runInsertSQLYieldRowID
 POST http://localhost:8989/api/v1/yr/runinsertsqlyieldrowid
 Content-Type: application/json
-Authorization: Bearer openSesame
+Authorization: Bearer VEUdEii4n7nCvofaBRJEC
 
 {
   "cmdText": "insert into tausers(tunamec, tunamep) values('測試一', 'Test1')",
@@ -45,18 +45,18 @@ Authorization: Bearer openSesame
 ### Get all 
 GET http://localhost:8989/api/v1/yr/tbrelcod?orderby=relcod
 Content-Type: application/json
-Authorization: Bearer openSesame
+Authorization: Bearer VEUdEii4n7nCvofaBRJEC
 
 ### Get one
 
 GET http://localhost:8989/api/v1/yr/tbrelcod/99?keyname=relcod&keytype=string
 Content-Type: application/json
-Authorization: Bearer openSesame
+Authorization: Bearer VEUdEii4n7nCvofaBRJEC
 
 ### Create one 
 POST http://localhost:8989/api/v1/yr/tbrelcod
 Content-Type: application/json
-Authorization: Bearer openSesame
+Authorization: Bearer VEUdEii4n7nCvofaBRJEC
 
 { 
     "relcod" : { "type": "string", "value" : "KK" },
@@ -68,7 +68,7 @@ Authorization: Bearer openSesame
 ### Update one
 PATCH http://localhost:8989/api/v1/yr/tbrelcod/KK?keyname=relcod&keytype=string
 Content-Type: application/json
-Authorization: Bearer openSesame
+Authorization: Bearer VEUdEii4n7nCvofaBRJEC
 
 { 
     "reldes" : { "type": "string", "value" : "testing 2" },
@@ -79,7 +79,7 @@ Authorization: Bearer openSesame
 ### Delete one 
 DELETE http://localhost:8989/api/v1/yr/tbrelcod/KK?keyname=relcod&keytype=string
 Content-Type: application/json
-Authorization: Bearer openSesame
+Authorization: Bearer VEUdEii4n7nCvofaBRJEC
 
 # 
 # REST Client for Visual Studio Code
