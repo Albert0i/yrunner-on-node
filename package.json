@@ -4,7 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/server.js"
+    "dev": "nodemon src/server.js",
+    "list": "pm2 list",
+    "api": "pm2 start src/server.js --name api-gateway",        
+    "scale": "pm2 scale api-gateway 4",
+    "stop": "pm2 stop api-gateway",
+    "delete": "pm2 delete api-gateway"
   },
   "keywords": [],
   "author": "",
