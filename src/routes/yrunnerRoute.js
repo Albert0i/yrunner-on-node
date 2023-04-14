@@ -123,7 +123,8 @@ router.delete('/:table/:key', verifyPassphrase, async (req, res) => {
     const query = url.parse(req.url,true).query
     const quote = query.keytype==="string" ? "'" : ""   
     const keyname = query.keyname || "id" 
-    const cmdText = `delete from ${table} where ${keyname}=${quote}${req.params.key}${quote}`
+    const keyvalue = req.params.key
+    const cmdText = `delete from ${table} where ${keyname}=${quote}${keyvalue}${quote}`
     
     if (query.norun)
         return res.status(200).json({cmdText})
