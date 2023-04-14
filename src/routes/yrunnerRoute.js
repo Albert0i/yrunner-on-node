@@ -5,7 +5,7 @@ const verifyCmdText = require('../middleware/veryfiCmdText')
 const verifyCmdTextArray = require('../middleware/verifyCmdTextArray')
 const verifyCmdTextInsert = require('../middleware/veryfiCmdTextInsert')
 const { runSQL, runValueSQL, runSelectSQL, runInsertSQLYieldRowID } = require('../yrunner')
-const { handle404 } = require('../utils/handle404')
+const { handle404 } = require('../middleware/handle404')
 
 router.get('/runselectsql', verifyPassphrase, verifyCmdText, async (req, res) => {
     const result = await runSelectSQL(req.body.cmdText)
