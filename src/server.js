@@ -5,7 +5,8 @@ const morgan = require('morgan')
 const path = require('path')
 const rfs = require('rotating-file-stream') // version 2.x
 const yrunnerRoute = require('./routes/yrunnerRoute')
-const { runSelectSQL } = require('./yrunner')
+const { handle404 } = require('./utils/handle404')
+const { showBanners } = require('./utils/showBanners')
 
 const app = express()
 app.use(express.json());
@@ -22,22 +23,12 @@ app.use(morgan('combined', { stream: accessLogStream }))
 
 app.use('/api/v1/yr', yrunnerRoute)
 
-app.all('/*', (req, res) => {
-    setTimeout(()=>{
-        res.sendStatus(404)
-    }, Math.ceil(Math.random() * 10000))
-})
+app.all('/*', handle404)
 
 app.listen(process.env.SERVER_PORT, () => {
     console.log(`Server started on ${process.env.SERVER_PORT}...`)    
-    showBanner()
+    showBanners()
 })
-
-const showBanner = async () => {
-    const result = await runSelectSQL('select banner from v$version')
-    if (result.success)
-        result.rows.forEach(row => console.log(row.BANNER))
-}
 
 /*
    Introduction to the Node-oracledb Driver for Oracle Database

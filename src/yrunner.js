@@ -62,6 +62,7 @@ const runSQL = async (cmdTextArray) => {
             result = await connection.execute(cmdText);
             rowsAffected += result.rowsAffected
         }
+        // Ready to commit
         err = await connection.commit()        
         if (err) 
             return { success: false, error: err, message: err.message }    
@@ -83,11 +84,37 @@ const runSQL = async (cmdTextArray) => {
 }
 
 // Run SQL Insert Statement and return the auto increment row id
-const RunInsertSQLYieldRowID = async (cmdText, rowid_name = "id") => {
-
+const runInsertSQLYieldRowID = async (cmdText, rowIdName = "id") => {
+    const sql_stub = ` returning ${rowIdName} into :temp_id`
+    let connection = null;
+    try {
+        connection = await oracledb.getConnection(dbConfig);    
+        const result = await connection.execute(cmdText + sql_stub, 
+                            {
+                                temp_id:  { type: oracledb.NUMBER, dir: oracledb.BIND_OUT },
+                            });        
+        // Ready to commit
+        err = await connection.commit()        
+        if (err) 
+            return { success: false, error: err, message: err.message }    
+        else 
+            return { success: true, [rowIdName]: result.outBinds.temp_id[0] } 
+    } catch (err) {
+        console.error(err);
+        return { success: false, error: err, message: err.message, cmdText }
+    } finally {
+        if (connection) {
+            try {
+                await connection.close();
+            } catch (err) {
+                console.error(err);
+                return { success: false, error: err, message: err.message }
+            }
+        }
+    }
 }
 
-module.exports = { runSQL, runValueSQL, runSelectSQL, RunInsertSQLYieldRowID } 
+module.exports = { runSQL, runValueSQL, runSelectSQL, runInsertSQLYieldRowID } 
 
 /*
    node-oracledb | SQL Execution

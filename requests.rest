@@ -1,14 +1,14 @@
 ### runSelectSQL
-POST http://localhost:8989/api/v1/yr/runselectsql
+GET http://localhost:8989/api/v1/yr/runselectsql
 Content-Type: application/json
 Authorization: Bearer openSesame
 
 {
-  "cmdText": "select * from tbrelcod where relcod='99'"
+  "cmdText": "select * from tbrelcod"
 }
 
 ### runValueSQL
-POST http://localhost:8989/api/v1/yr/runvaluesql
+GET http://localhost:8989/api/v1/yr/runvaluesql
 Content-Type: application/json
 Authorization: Bearer openSesame
 
@@ -30,6 +30,16 @@ Authorization: Bearer openSesame
       ]
 }
 
+
+### runInsertSQLYieldRowID
+POST http://localhost:8989/api/v1/yr/runinsertsqlyieldrowid
+Content-Type: application/json
+Authorization: Bearer openSesame
+
+{
+  "cmdText": "insert into tausers(tunamec, tunamep) values('測試一', 'Test1')",
+  "id": "tuid"
+}
 
 # 
 # REST Client for Visual Studio Code

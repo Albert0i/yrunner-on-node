@@ -212,24 +212,7 @@ namespace YRSample.DAL
 
                 // Set pending transaction to zero
                 pendingTrans = 0;
-
             }
-            //catch (OracleInternal.Network.NetworkException e)
-            //{
-            //    // ORA-12520: TNS:listener could not find available handler for registered type of server
-            //}
-            //catch (Oracle.ManagedDataAccess.Client.OracleException e)
-            //{
-            //    // Pooled connection request timed out 
-            //}
-            //catch (Oracle.DataAccess.Client.OracleException e)
-            //{
-            //    // Oracle.DataAccess.Client.OracleException: ORA-03114: 未與 ORACLE 相連
-            //}
-            //catch (System.NullReferenceException)
-            //{
-            //    // Object reference not set to an instance of an object.
-            //}
 #pragma warning disable CS0168
             catch (Exception e)
 #pragma warning restore CS0168
@@ -239,11 +222,9 @@ namespace YRSample.DAL
 
                 if (Convert.ToBoolean(ConfigurationManager.AppSettings["YR_MASK_FLAG"]))
                 {
-                    Http​Context.Current.Response.Redirect(String.Format(ConfigurationManager.AppSettings["YR_REDIRECT_URL"],                                                                         
-                                                                        ConfigurationManager.AppSettings["YR_MASK_MSG"].ToString()) +                                                                                                                                                  
-                                                                        HttpContext.Current.Server.UrlEncode(Environment.NewLine + 
-                                                                                                             Environment.NewLine + 
-                                                                                                             e.ToString()));
+                    Http​Context.Current.Response.Redirect(String.Format(ConfigurationManager.AppSettings["YR_REDIRECT_URL"],
+                                                                        ConfigurationManager.AppSettings["YR_MASK_MSG"].ToString()) + 
+                                                                        HttpContext.Current.Server.UrlEncode(Environment.ewLine + Environment.NewLine + e.ToString()));
                 }
                 else
                 {
@@ -338,10 +319,6 @@ namespace YRSample.DAL
             return ret;
         }
 
-        //protected string escQuote(string s)
-        //{
-        //    return s.Replace("'", "''");
-        //}
         protected string escQuote(string s)
         {
             if (s == "")
@@ -352,38 +329,3 @@ namespace YRSample.DAL
         #endregion
     }
 }
-
-/*
-
-                 uuuuuuu
-             uu$$$$$$$$$$$uu
-          uu$$$$$$$$$$$$$$$$$uu
-         u$$$$$$$$$$$$$$$$$$$$$u
-        u$$$$$$$$$$$$$$$$$$$$$$$u
-       u$$$$$$$$$$$$$$$$$$$$$$$$$u
-       u$$$$$$$$$$$$$$$$$$$$$$$$$u
-       u$$$$$$"   "$$$"   "$$$$$$u
-       "$$$$"      u$u       $$$$"
-        $$$u       u$u       u$$$
-        $$$u      u$$$u      u$$$
-         "$$$$uu$$$   $$$uu$$$$"
-          "$$$$$$$"   "$$$$$$$"
-            u$$$$$$$u$$$$$$$u
-             u$"$"$"$"$"$"$u
-  uuu        $$u$ $ $ $ $u$$       uuu
- u$$$$        $$$$$u$u$u$$$       u$$$$
-  $$$$$uu      "$$$$$$$$$"     uu$$$$$$
-u$$$$$$$$$$$uu    """""    uuuu$$$$$$$$$$
-$$$$"""$$$$$$$$$$uuu   uu$$$$$$$$$"""$$$"
- """      ""$$$$$$$$$$$uu ""$"""
-           uuuu ""$$$$$$$$$$uuu
-  u$$$uuu$$$$$$$$$uu ""$$$$$$$$$$$uuu$$$
-
-ASCII art for tag skull
-https://textart.io/art/tag/skull/3
-
-
-░▒▒ 💀 ▒▒░
-Cool text art to use on your socials (>‿◠)✌
-https://cooltext.top/skull
-*/
