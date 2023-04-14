@@ -4,7 +4,7 @@ const cors = require('cors')
 const morgan = require('morgan')
 const path = require('path')
 const rfs = require('rotating-file-stream') // version 2.x
-const yrunnerRoute = require('./routes/yrunnerRoute')
+const { router : yrunnerRoute } = require('./routes/yrunnerRoute')
 const { handle404 } = require('./middleware/handle404')
 const { showBanners } = require('./utils/showBanners')
 

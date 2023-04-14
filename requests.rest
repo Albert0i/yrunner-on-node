@@ -43,7 +43,7 @@ Authorization: Bearer openSesame
 ### RESTful API 
 
 ### Get all 
-GET http://localhost:8989/api/v1/yr/tbrelcod
+GET http://localhost:8989/api/v1/yr/tbrelcod?orderby=relcod
 Content-Type: application/json
 Authorization: Bearer openSesame
 
@@ -66,14 +66,14 @@ Authorization: Bearer openSesame
 }
 
 ### Update one
-GET http://localhost:8989/api/v1/yr/tbrelcod/KK?keyname=relcod&keytype=string
+PATCH http://localhost:8989/api/v1/yr/tbrelcod/KK?keyname=relcod&keytype=string
 Content-Type: application/json
 Authorization: Bearer openSesame
 
 { 
     "reldes" : { "type": "string", "value" : "testing 2" },
     "reldesc" : { "type": "string", "value" : "測試二" },
-    "update_ident" : { "type" : "number", "value": 0 }
+    "update_ident" : { "type" : "number", "value": 101 }
 }
 
 ### Delete one 
