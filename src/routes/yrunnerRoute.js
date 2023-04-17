@@ -11,13 +11,13 @@ const url = require('url');
 /*
    YRunner 
 */
-router.get('/runselectsql', verifyPassphrase, verifyCmdText, async (req, res) => {
+router.post('/runselectsql', verifyPassphrase, verifyCmdText, async (req, res) => {
     const result = await runSelectSQL(req.body.cmdText)
 
     res.status(result.success ? 200 : 400).json(result)
 })
 
-router.get('/runvaluesql', verifyPassphrase, verifyCmdText, async (req, res) => {
+router.post('/runvaluesql', verifyPassphrase, verifyCmdText, async (req, res) => {
     const result = await runValueSQL(req.body.cmdText)
 
     res.status(result.success ? 200 : 400).json(result)
