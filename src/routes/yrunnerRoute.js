@@ -55,7 +55,7 @@ router.get('/:table', verifyPassphrase, async (req, res) => {
                      (query._offset? `offset ${_offset} rows ` : ' ') + 
                      (query._limit? `fetch next ${_limit} rows only ` : ' ')
 
-    if (query.norun)
+    if (query._norun)
         return res.status(200).json({cmdText})
 
     const result = await runSelectSQL(cmdText, _lowerKeys)
@@ -73,12 +73,16 @@ router.get('/:table/:key', verifyPassphrase, async (req, res) => {
     const _lowerKeys = query._lowerKeys
     const cmdText = `select * from ${table} where ${_keyname}=${quote}${keyvalue}${quote}`
 
-    if (query.norun)
+    if (query._norun)
         return res.status(200).json({cmdText})
 
     const result = await runSelectSQL(cmdText, _lowerKeys)
 
-    res.status(result.success ? 200 : 400).json({cmdText, row: result.rows[0]})
+    res.status(result.success ? 200 : 400).json({
+        cmdText, 
+        success: result.success, 
+        row: (result.rows[0] ? result.rows[0] : null)
+    })
 })
 
 // Create one
@@ -97,7 +101,7 @@ router.post('/:table', verifyPassphrase, async (req, res) => {
     }
     const cmdText = `insert into ${table} (${fieldList}) values(${valueList})`
 
-    if (query.norun)
+    if (query._norun)
         return res.status(200).json({cmdText})
 
     const result = await runSQL([cmdText])
@@ -121,7 +125,7 @@ router.patch('/:table/:key', verifyPassphrase, async (req, res) => {
     }
     const cmdText = `update ${table} set ${setList} where ${_keyname}=${quote}${keyvalue}${quote} `
     
-    if (query.norun)
+    if (query._norun)
         return res.status(200).json({cmdText})
 
     const result = await runSQL([cmdText])
@@ -138,7 +142,7 @@ router.delete('/:table/:key', verifyPassphrase, async (req, res) => {
     const keyvalue = req.params.key
     const cmdText = `delete from ${table} where ${_keyname}=${quote}${keyvalue}${quote}`
     
-    if (query.norun)
+    if (query._norun)
         return res.status(200).json({cmdText})
 
     const result = await runSQL([cmdText])
