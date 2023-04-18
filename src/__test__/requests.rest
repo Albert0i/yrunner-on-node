@@ -1,3 +1,5 @@
+### YRunner Direct
+
 ### runSelectSQL
 POST http://localhost:8989/api/v1/yr/runselectsql
 Content-Type: application/json
@@ -40,10 +42,15 @@ Authorization: Bearer VEUdEii4n7nCvofaBRJEC
 }
 
 
-### RESTful API 
+### YRunner RESTful
 
 ### Get all 
-GET http://localhost:8989/api/v1/yr/tbrelcod?orderby=relcod
+GET http://localhost:8989/api/v1/yr/tbrelcod
+Content-Type: application/json
+Authorization: Bearer VEUdEii4n7nCvofaBRJEC
+
+### Get all with options 
+GET http://localhost:8989/api/v1/yr/tbrelcod?_filter=relcod>='20'&_sort=relcod&_order=asc&_offset=5&_limit=10
 Content-Type: application/json
 Authorization: Bearer VEUdEii4n7nCvofaBRJEC
 
@@ -59,10 +66,10 @@ Content-Type: application/json
 Authorization: Bearer VEUdEii4n7nCvofaBRJEC
 
 { 
-    "relcod" : { "type": "string", "value" : "KK" },
-    "reldes" : { "type": "string", "value" : "testing 1" },
-    "reldesc" : { "type": "string", "value" : "測試一" },
-    "update_ident" : { "type" : "number", "value": 0 }
+    "relcod" : "KK",
+    "reldes" : "testing 1",
+    "reldesc" : "測試一",
+    "update_ident" : 0
 }
 
 ### Update one
@@ -71,9 +78,9 @@ Content-Type: application/json
 Authorization: Bearer VEUdEii4n7nCvofaBRJEC
 
 { 
-    "reldes" : { "type": "string", "value" : "testing 2" },
-    "reldesc" : { "type": "string", "value" : "測試二" },
-    "update_ident" : { "type" : "number", "value": 101 }
+    "reldes" : "testing 2",
+    "reldesc" : "測試二",
+    "update_ident" : 101 
 }
 
 ### Delete one 

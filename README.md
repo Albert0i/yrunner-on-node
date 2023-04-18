@@ -5,6 +5,12 @@
 ### II. 
 ### III. 
 ### IV. Reference
+
+1. [typicode/json-server](https://github.com/typicode/json-server)
+2. [Introduction to the Node-oracledb Driver for Oracle Database](https://node-oracledb.readthedocs.io/en/latest/user_guide/introduction.html#getting-started-with-node-oracledb)
+3. [Oracle Instant Client Downloads for Microsoft Windows (x64) 64-bit](https://www.oracle.com/database/technologies/instant-client/winx64-64-downloads.html)
+4. [node-oracledb/examples](https://github.com/oracle/node-oracledb/tree/main/examples)
+
 ### V. Appendix 
 .env
 ```

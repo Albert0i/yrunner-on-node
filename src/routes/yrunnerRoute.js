@@ -9,7 +9,7 @@ const { handle404 } = require('../middleware/handle404')
 const url = require('url');
 
 /*
-   YRunner 
+   YRunner Direct 
 */
 router.post('/runselectsql', verifyPassphrase, verifyCmdText, async (req, res) => {
     const result = await runSelectSQL(req.body.cmdText)
@@ -36,14 +36,23 @@ router.post('/runinsertsqlyieldrowid', verifyPassphrase, verifyCmdTextInsert, as
 })
 
 /*
-   RESTful API
+   YRunner RESTful
 */
 // Get all 
 router.get('/:table', verifyPassphrase, async (req, res) => {
     const table = req.params.table
     const query = url.parse(req.url,true).query
-    const orderBy = query.orderby
-    const cmdText = `select * from ${table}` + (query.orderby? ` order by ${orderBy}` : "") 
+    const _filter = query._filter
+    const _sort = query._sort
+    const _order = query._order
+    const _offset = query._offset
+    const _limit = query._limit
+    const cmdText = `select * from ${table} ` +
+                     (query._filter? `where ${_filter} ` : ' ') + 
+                     (query._sort? `order by ${_sort} ` : ' ') +
+                     (query._order? `${_order} ` : ' ') + 
+                     (query._offset? `offset ${_offset} rows ` : ' ') + 
+                     (query._limit? `fetch next ${_limit} rows only ` : ' ')
 
     if (query.norun)
         return res.status(200).json({cmdText})
@@ -77,14 +86,15 @@ router.post('/:table', verifyPassphrase, async (req, res) => {
     let fieldList = ''
     let valueList = ''
 
-    for (const [key, obj] of Object.entries(req.body)) {
+    for (const [key, value] of Object.entries(req.body)) {
         if (fieldList!=='') fieldList += ', '
         if (valueList!=='') valueList += ', '
-
+        
         fieldList += key 
-        valueList += (obj.type==='string'?"'":"") + obj.value + (obj.type==='string'?"'":"")
-      }
+        valueList += ((typeof value)==='string'?"'":"") + value + ((typeof value)==='string'?"'":"")
+    }
     const cmdText = `insert into ${table} (${fieldList}) values(${valueList})`
+
     if (query.norun)
         return res.status(200).json({cmdText})
 
@@ -102,11 +112,11 @@ router.patch('/:table/:key', verifyPassphrase, async (req, res) => {
     const keyvalue = req.params.key
     let setList = ''
 
-    for (const [key, obj] of Object.entries(req.body)) {
+    for (const [key, value] of Object.entries(req.body)) {
         if (setList!=='') setList += ', '
-
-        setList += `${key}=${(obj.type==='string'?"'":"")}${obj.value}${(obj.type==='string'?"'":"")}`
-      }
+        
+        setList += `${key}=${((typeof value)==='string'?"'":"")}${value}${((typeof value)==='string'?"'":"")}`
+    }
     const cmdText = `update ${table} set ${setList} where ${keyname}=${quote}${keyvalue}${quote} `
     
     if (query.norun)
