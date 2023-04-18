@@ -6,7 +6,8 @@ Content-Type: application/json
 Authorization: Bearer VEUdEii4n7nCvofaBRJEC
 
 {
-  "cmdText": "select * from tbrelcod"
+  "cmdText": "select * from tbrelcod",
+  "lowerKeys": true
 }
 
 ### runValueSQL
@@ -15,7 +16,8 @@ Content-Type: application/json
 Authorization: Bearer VEUdEii4n7nCvofaBRJEC
 
 {
-  "cmdText": "select update_ident from tbrelcod where relcod='99'"
+  "cmdText": "select update_ident from tbrelcod where relcod='99'",
+  "lowerKeys": true
 }
 
 ### runSQL
@@ -50,13 +52,13 @@ Content-Type: application/json
 Authorization: Bearer VEUdEii4n7nCvofaBRJEC
 
 ### Get all with options 
-GET http://localhost:8989/api/v1/yr/tbrelcod?_filter=relcod>='20'&_sort=relcod&_order=asc&_offset=5&_limit=10
+GET http://localhost:8989/api/v1/yr/tbrelcod?_filter=relcod>='20'&_sort=relcod&_order=asc&_offset=5&_limit=10&_lowerKeys=true
 Content-Type: application/json
 Authorization: Bearer VEUdEii4n7nCvofaBRJEC
 
 ### Get one
 
-GET http://localhost:8989/api/v1/yr/tbrelcod/99?keyname=relcod&keytype=string
+GET http://localhost:8989/api/v1/yr/tbrelcod/99?_keyname=relcod&_keytype=string&_lowerKeys=true
 Content-Type: application/json
 Authorization: Bearer VEUdEii4n7nCvofaBRJEC
 
@@ -73,7 +75,7 @@ Authorization: Bearer VEUdEii4n7nCvofaBRJEC
 }
 
 ### Update one
-PATCH http://localhost:8989/api/v1/yr/tbrelcod/KK?keyname=relcod&keytype=string
+PATCH http://localhost:8989/api/v1/yr/tbrelcod/KK?_keyname=relcod&_keytype=string
 Content-Type: application/json
 Authorization: Bearer VEUdEii4n7nCvofaBRJEC
 
@@ -84,7 +86,7 @@ Authorization: Bearer VEUdEii4n7nCvofaBRJEC
 }
 
 ### Delete one 
-DELETE http://localhost:8989/api/v1/yr/tbrelcod/KK?keyname=relcod&keytype=string
+DELETE http://localhost:8989/api/v1/yr/tbrelcod/KK?_keyname=relcod&_keytype=string
 Content-Type: application/json
 Authorization: Bearer VEUdEii4n7nCvofaBRJEC
 

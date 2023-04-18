@@ -12,13 +12,13 @@ const url = require('url');
    YRunner Direct 
 */
 router.post('/runselectsql', verifyPassphrase, verifyCmdText, async (req, res) => {
-    const result = await runSelectSQL(req.body.cmdText)
+    const result = await runSelectSQL(req.body.cmdText, req.body.lowerKeys)
 
     res.status(result.success ? 200 : 400).json(result)
 })
 
 router.post('/runvaluesql', verifyPassphrase, verifyCmdText, async (req, res) => {
-    const result = await runValueSQL(req.body.cmdText)
+    const result = await runValueSQL(req.body.cmdText, req.body.lowerKeys)
 
     res.status(result.success ? 200 : 400).json(result)
 })
@@ -47,6 +47,7 @@ router.get('/:table', verifyPassphrase, async (req, res) => {
     const _order = query._order
     const _offset = query._offset
     const _limit = query._limit
+    const _lowerKeys = query._lowerKeys
     const cmdText = `select * from ${table} ` +
                      (query._filter? `where ${_filter} ` : ' ') + 
                      (query._sort? `order by ${_sort} ` : ' ') +
@@ -57,7 +58,7 @@ router.get('/:table', verifyPassphrase, async (req, res) => {
     if (query.norun)
         return res.status(200).json({cmdText})
 
-    const result = await runSelectSQL(cmdText)    
+    const result = await runSelectSQL(cmdText, _lowerKeys)
 
     res.status(result.success ? 200 : 400).json({cmdText, ...result})
 })
@@ -65,18 +66,19 @@ router.get('/:table', verifyPassphrase, async (req, res) => {
 // Get one 
 router.get('/:table/:key', verifyPassphrase, async (req, res) => {
     const table = req.params.table
-    const query = url.parse(req.url,true).query
-    const quote = query.keytype==="string" ? "'" : ""   
-    const keyname = query.keyname || "id"
+    const query = url.parse(req.url,true).query    
+    const _keyname = query._keyname || "id"
+    const quote = query._keytype==="string" ? "'" : ""   
     const keyvalue = req.params.key
-    const cmdText = `select * from ${table} where ${keyname}=${quote}${keyvalue}${quote}`
+    const _lowerKeys = query._lowerKeys
+    const cmdText = `select * from ${table} where ${_keyname}=${quote}${keyvalue}${quote}`
 
     if (query.norun)
         return res.status(200).json({cmdText})
 
-    const result = await runSelectSQL(cmdText)
+    const result = await runSelectSQL(cmdText, _lowerKeys)
 
-    res.status(result.success ? 200 : 400).json({cmdText, ...result})
+    res.status(result.success ? 200 : 400).json({cmdText, row: result.rows[0]})
 })
 
 // Create one
@@ -106,9 +108,9 @@ router.post('/:table', verifyPassphrase, async (req, res) => {
 // Update one
 router.patch('/:table/:key', verifyPassphrase, async (req, res) => {
     const table = req.params.table
-    const query = url.parse(req.url,true).query
-    const quote = query.keytype==="string" ? "'" : ""   
-    const keyname = query.keyname || "id" 
+    const query = url.parse(req.url,true).query    
+    const _keyname = query._keyname || "id" 
+    const quote = query._keytype==="string" ? "'" : ""   
     const keyvalue = req.params.key
     let setList = ''
 
@@ -117,7 +119,7 @@ router.patch('/:table/:key', verifyPassphrase, async (req, res) => {
         
         setList += `${key}=${((typeof value)==='string'?"'":"")}${value}${((typeof value)==='string'?"'":"")}`
     }
-    const cmdText = `update ${table} set ${setList} where ${keyname}=${quote}${keyvalue}${quote} `
+    const cmdText = `update ${table} set ${setList} where ${_keyname}=${quote}${keyvalue}${quote} `
     
     if (query.norun)
         return res.status(200).json({cmdText})
@@ -130,11 +132,11 @@ router.patch('/:table/:key', verifyPassphrase, async (req, res) => {
 // Delete one 
 router.delete('/:table/:key', verifyPassphrase, async (req, res) => {
     const table = req.params.table
-    const query = url.parse(req.url,true).query
-    const quote = query.keytype==="string" ? "'" : ""   
-    const keyname = query.keyname || "id" 
+    const query = url.parse(req.url,true).query    
+    const _keyname = query._keyname || "id" 
+    const quote = query._keytype==="string" ? "'" : ""   
     const keyvalue = req.params.key
-    const cmdText = `delete from ${table} where ${keyname}=${quote}${keyvalue}${quote}`
+    const cmdText = `delete from ${table} where ${_keyname}=${quote}${keyvalue}${quote}`
     
     if (query.norun)
         return res.status(200).json({cmdText})

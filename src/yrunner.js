@@ -1,15 +1,22 @@
 const oracledb = require('oracledb');
 const dbConfig = require('./config/dbConfig.js');
+const { lowerObjKeyArray } = require('./utils/lowerKeys')
 
 oracledb.outFormat = oracledb.OUT_FORMAT_OBJECT;
 
 // Run SQL Statement and return a data table
-const runSelectSQL = async (cmdText) => {
+const runSelectSQL = async (cmdText, lowerKeys=false) => {
     let connection = null;
     try {
         connection = await oracledb.getConnection(dbConfig);    
         const result = await connection.execute(cmdText);
-        return { success: true, rows: result.rows }
+        if (lowerKeys)
+            {
+                const newRows = lowerObjKeyArray(result.rows)
+                return { success: true, rows: newRows }    
+            }
+        else    
+            return { success: true, rows: result.rows }
     } catch (err) {
         console.error(err);
         return { success: false, error: err, message: err.message, cmdText }
@@ -18,7 +25,7 @@ const runSelectSQL = async (cmdText) => {
             try {
                 await connection.close();
             } catch (err) {
-                console.error(err);
+                console.error(err);                
                 return { success: false, error: err, message: err.message }
             }
         }
@@ -26,12 +33,18 @@ const runSelectSQL = async (cmdText) => {
 }
 
 // Run SQL Statement and return a value
-const runValueSQL = async (cmdText) => {
+const runValueSQL = async (cmdText, lowerKeys=false) => {
     let connection = null;
     try {
         connection = await oracledb.getConnection(dbConfig);    
         const result = await connection.execute(cmdText);
-        return { success: true, ...result.rows[0] }
+        if (lowerKeys)
+        {
+            const newRows = lowerObjKeyArray(result.rows)
+            return { success: true, ...newRows[0] }  
+        }
+        else 
+            return { success: true, ...result.rows[0] }
     } catch (err) {
         console.error(err);
         return { success: false, error: err, message: err.message, cmdText }
