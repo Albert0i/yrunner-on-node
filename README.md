@@ -9,16 +9,16 @@ Four years ago, I have created a small [C#](https://learn.microsoft.com/en-us/do
 Not until recently, do i meet [node-oracledb](https://oracle.github.io/node-oracledb/), a strange sense of presentiment dawned upon me... Instead of a JSON file, is it possible to wrap up a relational database by some kind of [API Gateway](https://www.redhat.com/en/topics/api/what-does-an-api-gateway-do), through which RESTful services are provided. From then on, a hideous grin is divulged in the visage of my portrait. 
 
 
-### I. Basic setup 
-1. Download [Oracle Instant Client](https://www.oracle.com/database/technologies/instant-client/winx64-64-downloads.html) binaries, in my case, I choose `Basic Package` of `Version 19.18.0.0.0`;
+### I. Project setup 
+1. Download [Oracle Instant Client](https://www.oracle.com/database/technologies/instant-client/winx64-64-downloads.html) binary files, as of this writing, I use `Basic Package` of `Version 19.18.0.0.0`;
 
-2. Extract `instantclient-basic-windows.x64-19.18.0.0.0dbru.zip` to folder `C:\app\client\albertoi\product\19.18\client_1\bin`; 
+2. Extract `instantclient-basic-windows.x64-19.18.0.0.0dbru.zip` to folder such as `C:\app\client\albertoi\product\19.18\client_1\bin`; 
 
 3. Add this folder to `PATH` environment variable;
 
-4. Clone the [repository](https://github.com/Albert0i/yrunner-on-node.git), run `npm install` to install node modules;
+4. Clone this [repository](https://github.com/Albert0i/yrunner-on-node.git), and run `npm install`;
 
-5. Create .env file 
+5. Create a .env file 
 ```
 SERVER_PORT=8989
 
@@ -29,6 +29,7 @@ NODE_ORACLEDB_CONNECTIONSTRING=localhost/XEPDB1
 PASSPHRASE=VEUdEii4n7nCvofaBRJEC
 DELAY404=10000
 ```
+
 6. Run `npm run dev` to start the gateway. 
 
 
