@@ -1,11 +1,11 @@
 ## YRunner on Node ─ A generic API gateway to Oralce Database
 
 ### Prologue
-Dating from my early days of learning [React](https://react.dev/), I was deeply impressed and fascinated by [Json Server](https://github.com/typicode/json-server). The idea of utilizing a <em>dead</em> simple [JSON](https://www.w3schools.com/js/js_json_intro.asp) text file to mimic so as to completely mocks up a [REST](https://restfulapi.net/) server, in such a way that it proves to be both convenient and indispensable to most of the front-end developers today. 
+Dating from my early days in learning [React](https://react.dev/), I was deeply impressed and fascinated by the delicacy of [Json Server](https://github.com/typicode/json-server) --- by utilizing a <em>dead</em> simple [JSON](https://www.w3schools.com/js/js_json_intro.asp) text file to mimic so as to completely mocks up a [REST](https://restfulapi.net/) server, in such a way that it proves to be both convenient and indispensable to most of the front-end developers today. 
 
-Four years ago, I have created a small C# library, aka [YRunner](https://github.com/Albert0i/yrunner-on-node/blob/main/oic/YRunner.cs), to facilitate data manipulation on [Oracle Database](https://www.oracle.com/database/). It provides a handful of helpful methods on which one of my ASP.NET 4.5 project is heavy depended on it. 
+Four years ago, I have created a small C# library, aka [YRunner](https://github.com/Albert0i/yrunner-on-node/blob/main/oic/YRunner.cs), to facilitate data manipulation on [Oracle Database](https://www.oracle.com/database/). It provides a handful of helpful functions upon which one of my ASP.NET 4.5 project is heavy depended. 
 
-Not until recently, do i meet [node-oracledb](https://oracle.github.io/node-oracledb/), a presentiment of faint sparkle of triumphant dawn upon me. Is is possible to mock up or wrap up the whole database by an API geteway...?
+Not until recently, do i meet [node-oracledb](https://oracle.github.io/node-oracledb/), a strange sense of presentiment dawned upon me... Instead of using a plain text JSON file, is it possible to wrap up a relational database by some kind of [API Gateway](https://www.redhat.com/en/topics/api/what-does-an-api-gateway-do), through which RESTful services are provided. 
 
 ### I. Basic setup 
 1. Download [Oracle Instant Client](https://www.oracle.com/database/technologies/instant-client/winx64-64-downloads.html) binaries, in my case, I choose `Basic Package` of `Version 19.18.0.0.0`;
@@ -54,4 +54,4 @@ DELAY404=10000
 ### Epilogue 
 
 
-### EOF (2023/04/18)
+### EOF (2023/04/19)
