@@ -34,7 +34,14 @@ DELAY404=10000
 
 
 ### II. YRunner RESTful  
-
+```
+http://localhost:8989/api/v1/yr/tbrelcod?_filter=relcod>='20'&_sort=relcod&_order=asc&_offset=5&_limit=10&_lowerKeys=true&_norun=true
+```
+```json
+{
+  "cmdText": "select * from tbrelcod where relcod>='20' order by relcod asc offset 5 rows fetch next 10 rows only "
+}
+```
 
 ### III. YRunner Direct 
 
@@ -57,4 +64,4 @@ DELAY404=10000
 ### Epilogue 
 
 
-### EOF (2023/04/19)
+### EOF (2023/04/20)
