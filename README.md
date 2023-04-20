@@ -47,7 +47,7 @@ where
 - _filter     - condition 
 - _sort       - sort by field
 - _order      - asc or desc 
-- _offset     - skip n records 
+- _offset     - skip n rows  
 - _limit      - take n rows 
 - _lowerkeys  - lowercase object keys, default 'false'
 - _norun      - do not run, default 'false'
@@ -157,9 +157,9 @@ Content-Type: application/json
 
 
 ### IV. Summary 
-By insulating applications and databases, an API gateway effectively decouples front end and back end so that one end varies independently of the other. Moreover, most front end frameworks and javascript libraries can not do without some kind of API endpoints.
+By insulating applications and databases, an API gateway effectively decouples front end and back end so that one end varies independently of the other. Moreover, most front end frameworks and javascript libraries can not do without API endpoints.
 
-Lastly, by dint of [WebClient Class](https://learn.microsoft.com/en-us/dotnet/api/system.net.webclient?view=net-7.0) and [Newtonsoft.Json](https://www.newtonsoft.com/json) package, classic ASP.NET application can work with API gateway too. Please check my example [here](https://github.com/Albert0i/yrunner-on-node/blob/main/oic/WebClient1.aspx.cs). 
+Lastly, by dint of [WebClient Class](https://learn.microsoft.com/en-us/dotnet/api/system.net.webclient?view=net-7.0) and [Newtonsoft.Json](https://www.newtonsoft.com/json) package, classic ASP.NET application can work with with API gateway too. Please check [here](https://github.com/Albert0i/yrunner-on-node/blob/main/oic/WebClient1.aspx.cs) for an example. 
 
 
 ### V. Reference
@@ -172,6 +172,18 @@ Lastly, by dint of [WebClient Class](https://learn.microsoft.com/en-us/dotnet/ap
 
 
 ### Epilogue 
+```
+"The code"
+
+From thence and whence, 
+unto nowhere.
+From look to code, 
+from maze to face.
+New codes deviate from old,
+new looks resemble to those,
+Re-write is after-life,
+varying is invarient. 
+```
 
 
 ### EOF (2023/04/20)
