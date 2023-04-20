@@ -1,6 +1,11 @@
 ## YRunner on Node ─ A generic API gateway to Oralce Database
 
 
+<div style="text-align: center; color:white; background-color:black">There are ideal series of events which run parallel with the real ones. They rarely coincide. Men and circumstances generally modify the ideal train of events, so that it seems imperfect, and its consequences are equally imperfect. Thus with the Reformation; instead of Protestantism came Lutheranism.
+
+— Novalis. Moral Ansichten.</div>
+
+
 ### Prologue
 Dating from my early days in learning [React](https://react.dev/), I was deeply impressed and fascinated by the delicacy of [Json Server](https://github.com/typicode/json-server) --- by utilizing a <em>dead simple</em> [JSON](https://www.w3schools.com/js/js_json_intro.asp) text file to mimic so as to completely mocks up a [REST](https://restfulapi.net/) server in such a way that it proves to be both convenient and indispensable to most of the front end developers today. 
 
