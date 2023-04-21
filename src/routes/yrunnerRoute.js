@@ -102,11 +102,11 @@ router.post('/:table', verifyPassphrase, async (req, res) => {
     const cmdText = `insert into ${table} (${fieldList}) values(${valueList})`
 
     if (query._norun)
-        return res.status(201).json({cmdText})
+        return res.status(200).json({cmdText})
 
     const result = await runSQL([cmdText])
 
-    res.status(result.success ? 200 : 400).json({cmdText, ...result})
+    res.status(result.success ? 201 : 400).json({cmdText, ...result})
 })
 
 // Update one
@@ -143,11 +143,11 @@ router.delete('/:table/:key', verifyPassphrase, async (req, res) => {
     const cmdText = `delete from ${table} where ${_keyname}=${quote}${keyvalue}${quote}`
     
     if (query._norun)
-        return res.status(204).json({cmdText})
+        return res.status(200).json({cmdText})
 
     const result = await runSQL([cmdText])
 
-    res.status(result.success ? 200 : 400).json({cmdText, ...result})
+    res.status(result.success ? 204 : 400).json({cmdText, ...result})
 })
 
 router.all('/*', handle404)
