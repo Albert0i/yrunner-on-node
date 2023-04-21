@@ -32,7 +32,7 @@ router.post('/runsql', verifyPassphrase, verifyCmdTextArray, async (req, res) =>
 router.post('/runinsertsqlyieldrowid', verifyPassphrase, verifyCmdTextInsert, async (req, res) => {
     const result = await runInsertSQLYieldRowID(req.body.cmdText, req.body.id)
 
-    res.status(result.success ? 200 : 400).json(result)
+    res.status(result.success ? 201 : 400).json(result)
 })
 
 /*
