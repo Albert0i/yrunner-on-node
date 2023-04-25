@@ -13,10 +13,10 @@ Mors ubi dira fuit vita salusque patent.<br />
 ### Prologue
 In the realm of database, data are treated in different ways. Data, per se, can be divided into [transactional data](https://www.tibco.com/reference-center/what-is-transactional-data) and non-transactional. Code tables, such as employee names, product categories, site/location addresses, are typical non-transactional and be always referenced by transaction data. Since they are infrequently changed, caching code tables <em>somewhere</em> lest round-tripping to backend database again and again for the same set of data, which can be a performance boost especially for tight budget system. 
 
-### I. Caching code tables 
+### I. Caching data
 
 
-### II. Using cached code tables
+### II. Using cached data
 
 
 ### III. Refreshing stale data
