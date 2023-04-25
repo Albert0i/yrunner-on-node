@@ -28,7 +28,7 @@ GET http://localhost:8989/api/v2/yr/tbrelcod
 ```
 
 
-### III. Refreshing stale data
+### III. Refreshing data
 ```
 ```
 
