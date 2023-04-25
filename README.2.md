@@ -3,15 +3,19 @@
 
 <div style="text-align: center; color:white; background-color:black"><em>
 Impia tortorum longos hic turba furores
+
 Sanguinis innocui, non satiata, aluit.
+
 Sospite nunc patria, fracto nunc funeris antro,
+
 Mors ubi dira fuit vita salusque patent.
+
 
 [Quatrain composed for the gates of a market to be erected upon the site of the Jacobin Club House at Paris.]
 </em></div>
 
 ### Prologue
-In the realm of database, data are treated in different ways. Data, per se, can be divided into [transactional data](https://www.tibco.com/reference-center/what-is-transactional-data) and non-transactional. Code tables, such as employee names, product categories, site/location addresses, are typical non-transactional and be always referenced by transaction data. Since they are infrequently modified, caching code tables <em>somewhere</em> lest round-tripping to backend database again and again for the same set of data which can be a performance boost especially for tight budget system. 
+In the realm of database, data are treated in different ways. Data, per se, can be divided into [transactional data](https://www.tibco.com/reference-center/what-is-transactional-data) and non-transactional. Code tables, such as employee names, product categories, site/location addresses, are typical non-transactional and be always referenced by transaction data. Since they are infrequently changed, caching code tables <em>somewhere</em> lest round-tripping to backend database again and again for the same set of data, which can be a performance boost especially for tight budget system. 
 
 ### I. Caching code tables 
 
