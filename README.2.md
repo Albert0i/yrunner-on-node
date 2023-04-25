@@ -2,15 +2,12 @@
 
 
 <div style="text-align: center; color:white; background-color:black"><em>
-Impia tortorum longos hic turba furores
-  
-  Sanguinis innocui, non satiata, aluit.
-  
-  Sospite nunc patria, fracto nunc funeris antro,
-  
-  Mors ubi dira fuit vita salusque patent.
-  
-  
+Impia tortorum longos hic turba furores<br />
+Sanguinis innocui, non satiata, aluit.<br />
+Sospite nunc patria, fracto nunc funeris antro,<br />
+Mors ubi dira fuit vita salusque patent.<br />
+<br />
+<br />
 [Quatrain composed for the gates of a market to be erected upon the site of the Jacobin Club House at Paris.]
 </em></div>
 
