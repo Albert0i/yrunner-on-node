@@ -8,7 +8,6 @@ Sospite nunc patria, fracto nunc funeris antro,
 Mors ubi dira fuit vita salusque patent.
 
 [Quatrain composed for the gates of a market to be erected upon the site of the Jacobin Club House at Paris.]
-
 </em></div>
 
 ### Prologue
@@ -32,6 +31,12 @@ Mors ubi dira fuit vita salusque patent.
 
 ### Epilogue 
 ```
+這裡邪惡的折磨者長期憤怒
+他被無害的血液滋養，並不滿足。
+國今待，葬窟今破，
+死亡，生命是可怕的，而健康是開放的。
+
+[為在巴黎雅各賓會所舊址上建造的市場大門而作的四行詩。]
 ```
 
 
