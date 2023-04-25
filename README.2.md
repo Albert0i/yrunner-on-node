@@ -10,7 +10,7 @@ Sospite nunc patria, fracto nunc funeris antro,
   
 Mors ubi dira fuit vita salusque patent.
   
-
+  
 [Quatrain composed for the gates of a market to be erected upon the site of the Jacobin Club House at Paris.]
 </em></div>
 
