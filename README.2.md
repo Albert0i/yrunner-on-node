@@ -34,7 +34,7 @@ In the realm of database, data are treated in different ways. Data, per se, can 
 
 ### Epilogue 
 ```
-這裡邪惡的折磨者長期憤怒
+這裡邪惡的折磨者長期憤怒，
 他被無害的血液滋養，並不滿足。
 國今待，葬窟今破，
 死亡，生命是可怕的，而健康是開放的。
