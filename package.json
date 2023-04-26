@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon src/server.js",
     "list": "pm2 list",
-    "api": "pm2 start src/server.js --name api-gateway",        
+    "api": "pm2 start src/server.js --name api-gateway",
     "scale": "pm2 scale api-gateway 4",
     "stop": "pm2 stop api-gateway",
     "delete": "pm2 delete api-gateway"
@@ -20,6 +20,7 @@
     "express": "^4.18.2",
     "morgan": "^1.10.0",
     "oracledb": "^5.5.0",
-    "rotating-file-stream": "^3.1.0"
+    "rotating-file-stream": "^3.1.0",
+    "sqlite3": "^5.1.6"
   }
 }

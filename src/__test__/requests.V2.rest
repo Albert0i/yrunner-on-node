@@ -12,28 +12,24 @@ Content-Type: application/json
 Authorization: Bearer VEUdEii4n7nCvofaBRJEC
 
 
-### runSQL
-POST http://localhost:8989/api/v1/yr/runsql
+### Cache 
+
+### Cache (status) 
+POST http://localhost:8989/api/v2/cache/status
 Content-Type: application/json
 Authorization: Bearer VEUdEii4n7nCvofaBRJEC
 
-{
-  "cmdTexts": [
-      "update tbrelcod set update_ident=update_ident+1 where relcod='99'",
-      "update tbrelcod set update_ident=update_ident+1 where relcod='99'",
-      "update tbrelcod set update_ident=update_ident+1 where relcod='99'"
-      ]
-}
 
-### runInsertSQLYieldRowID
-POST http://localhost:8989/api/v1/yr/runinsertsqlyieldrowid
+### Cache (load)
+POST http://localhost:8989/api/v2/cache/load/tbrelcod
 Content-Type: application/json
 Authorization: Bearer VEUdEii4n7nCvofaBRJEC
 
-{
-  "cmdText": "insert into tausers(tunamec, tunamep) values('測試一', 'Test1')",
-  "id": "tuid"
-}
+
+### Cache (unload)
+POST http://localhost:8989/api/v2/cache/unload/tbrelcod
+Content-Type: application/json
+Authorization: Bearer VEUdEii4n7nCvofaBRJEC
 
 
 ### YRunner RESTful
