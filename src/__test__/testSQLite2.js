@@ -33,7 +33,7 @@ const runSelectSQL = async (cmdText, lowerKeys=false) => {
 const runValueSQL = async (cmdText, lowerKeys=false) => {
     try {
         const result = await db.get(cmdText)
-        if (lowerKeys && result)
+        if (lowerKeys)
         {
             const newResult = lowerObjKey(result)
             return { success: true, ...newResult }  
@@ -59,11 +59,11 @@ const runSQL = async (cmdText) => {
 
 const testing = async () => {
     await startCache()
-    const result1 = await runSelectSQL("select * from tbrelcod", true)
+    const result1 = await runSelectSQL("select * from tbrelcodbb", true)
     console.log(result1)
-    const result2 = await runValueSQL("select * from tbrelcod where relcod='KKK'", true)
+    const result2 = await runValueSQL("select * from tbrelcod where relcod='KK'", true)
     console.log(result2)
-    const result3 = await runSQL("update tbrelcod set update_ident=update_ident+1 where relcod='KKK'")
+    const result3 = await runSQL("update tbrelcod set update_ident=update_ident+1 where relcod='KK'")
     console.log(result3)
 }
 

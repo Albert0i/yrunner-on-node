@@ -1,8 +1,8 @@
 const sqlite3 = require('sqlite3');
-const sq3db = new sqlite3.Database('../data/db.sqlite');
+const sqliteDb = new sqlite3.Database('../data/db.sqlite');
 
 module.exports = {
-    sq3db
+    sqliteDb
 };
 
 /*
