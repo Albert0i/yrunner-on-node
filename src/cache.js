@@ -1,4 +1,4 @@
-const { runSQL, runValueSQL, runSelectSQL, openDb } = require('./lrunner')
+const { runSQL, runSelectSQL, openDb } = require('./lrunner')
 const { yyyymmdd, hhmmss } = require('./utils/datetime')
 
 let cachedItems = []
@@ -13,17 +13,19 @@ const isCached = (name) => {
     return cachedItems.find(row => row.tabname.toLowerCase() === lcName);
 }
 
-const addItem = async (name) => {
+const addItem = async (name, schema, data) => {
     const lcName = name.toLowerCase()
-
+    console.log('schema=', schema)
+    console.log('data=', data)
     if (! isCached(lcName)) 
     {        
         try {
             const crtdate = yyyymmdd()
             const crttime = hhmmss()
-            // Add entry to cache             
+            // Add entry to cache
+
             const result = await runSQL(`insert into cache values('${lcName}', ${crtdate}, ${crttime})`)
-            // Load data to cache 
+                
 
             // Add entry memory!!!
             cachedItems.push({ tabname: lcName, crtdate, crttime})
@@ -48,7 +50,7 @@ const removeItem = async (name) => {
         cachedItems = cachedItems.filter(row => row.tabname !== lcName)
         try {
             // Remove entry from cache 
-            const result = await runSQL(`delete from cache where tabname='${lcName}'`)
+            const result = await runSQL(`delete from cache where tabname='${lcName}'; drop table ${lcName}`)
             // Remove data from cache 
 
             return result 
@@ -61,6 +63,19 @@ const removeItem = async (name) => {
                 "success": false,
                 "message": `${name} not yet loaded`
                 }
+}
+
+const updateItem = async (name, cmdText) => {
+    const cmdType = cmdText.split(' ')[0].toLowerCase()
+
+    switch (cmdType) {
+        case "insert": 
+                        break; 
+        case "update": 
+                        break; 
+        case "insert": 
+                        break; 
+    }
 }
 
 const startCache = async(filename='db.sqlite') => {
