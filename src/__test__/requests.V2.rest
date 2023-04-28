@@ -1,0 +1,135 @@
+### Cache 
+
+### schema (JSON)
+POST http://localhost:8989/api/v2/cache/schema/tbrelcod
+Content-Type: application/json
+Authorization: Bearer VEUdEii4n7nCvofaBRJEC
+
+
+### schema (SQLite)
+POST http://localhost:8989/api/v2/cache/schema/tbrelcod/sqlite
+Content-Type: application/json
+Authorization: Bearer VEUdEii4n7nCvofaBRJEC
+
+
+### schema (data)
+POST http://localhost:8989/api/v2/cache/schema/tbrelcod/data
+Content-Type: application/json
+Authorization: Bearer VEUdEii4n7nCvofaBRJEC
+
+
+### status 
+POST http://localhost:8989/api/v2/cache/status
+Content-Type: application/json
+Authorization: Bearer VEUdEii4n7nCvofaBRJEC
+
+
+### load
+POST http://localhost:8989/api/v2/cache/load/tbrelcod
+Content-Type: application/json
+Authorization: Bearer VEUdEii4n7nCvofaBRJEC
+
+
+### unload 
+POST http://localhost:8989/api/v2/cache/unload/tbrelcod
+Content-Type: application/json
+Authorization: Bearer VEUdEii4n7nCvofaBRJEC
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### runValueSQL
+POST http://localhost:8989/api/v1/yr/runvaluesql
+Content-Type: application/json
+Authorization: Bearer VEUdEii4n7nCvofaBRJEC
+
+{
+  "cmdText": "select update_ident from tbrelcod where relcod='99'",
+  "lowerKeys": true
+}
+
+### runSQL
+POST http://localhost:8989/api/v1/yr/runsql
+Content-Type: application/json
+Authorization: Bearer VEUdEii4n7nCvofaBRJEC
+
+{
+  "cmdTexts": [
+      "update tbrelcod set update_ident=update_ident+1 where relcod='99'",
+      "update tbrelcod set update_ident=update_ident+1 where relcod='99'",
+      "update tbrelcod set update_ident=update_ident+1 where relcod='99'"
+      ]
+}
+
+### runInsertSQLYieldRowID
+POST http://localhost:8989/api/v1/yr/runinsertsqlyieldrowid
+Content-Type: application/json
+Authorization: Bearer VEUdEii4n7nCvofaBRJEC
+
+{
+  "cmdText": "insert into tausers(tunamec, tunamep) values('測試一', 'Test1')",
+  "id": "tuid"
+}
+
+
+### YRunner RESTful
+
+### Get all 
+GET http://localhost:8989/api/v1/yr/tbrelcod
+Content-Type: application/json
+Authorization: Bearer VEUdEii4n7nCvofaBRJEC
+
+### Get all with options 
+GET http://localhost:8989/api/v1/yr/tbrelcod?_filter=relcod>='20'&_sort=relcod&_order=asc&_offset=5&_limit=10&_lowerKeys=true
+Content-Type: application/json
+Authorization: Bearer VEUdEii4n7nCvofaBRJEC
+
+### Get one
+
+GET http://localhost:8989/api/v1/yr/tbrelcod/99?_keyname=relcod&_keytype=string&_lowerKeys=true
+Content-Type: application/json
+Authorization: Bearer VEUdEii4n7nCvofaBRJEC
+
+### Create one 
+POST http://localhost:8989/api/v1/yr/tbrelcod
+Content-Type: application/json
+Authorization: Bearer VEUdEii4n7nCvofaBRJEC
+
+{ 
+    "relcod" : "KK",
+    "reldes" : "testing 1",
+    "reldesc" : "測試一",
+    "update_ident" : 0
+}
+
+### Update one
+PATCH http://localhost:8989/api/v1/yr/tbrelcod/KK?_keyname=relcod&_keytype=string
+Content-Type: application/json
+Authorization: Bearer VEUdEii4n7nCvofaBRJEC
+
+{ 
+    "reldes" : "testing 2",
+    "reldesc" : "測試二",
+    "update_ident" : 101 
+}
+
+### Delete one 
+DELETE http://localhost:8989/api/v1/yr/tbrelcod/KK?_keyname=relcod&_keytype=string
+Content-Type: application/json
+Authorization: Bearer VEUdEii4n7nCvofaBRJEC
+
+# 
+# REST Client for Visual Studio Code
+# https://marketplace.visualstudio.com/items?itemName=humao.rest-client
+#

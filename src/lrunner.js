@@ -4,7 +4,7 @@ const { lowerObjKey, lowerObjKeyArray } = require('./utils/lowerKeys')
 
 let db = null; 
 
-const openDb = async (filename='./db.sqlite') => {
+const openDb = async (filename='db.sqlite') => {
     try {
         db = await open({
             filename,

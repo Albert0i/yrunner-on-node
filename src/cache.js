@@ -27,13 +27,16 @@ const addItem = async (name) => {
 
             // Add entry memory!!!
             cachedItems.push({ tabname: lcName, crtdate, crttime})
-            return result.success 
+            return result
         } catch (err) {
             console.log(err)
             return err
         }    
     } else 
-        return false
+    return {
+        "success": false,
+        "message": `${name} already loaded`
+        }
 }
 
 const removeItem = async (name) => {
@@ -48,22 +51,26 @@ const removeItem = async (name) => {
             const result = await runSQL(`delete from cache where tabname='${lcName}'`)
             // Remove data from cache 
 
-            return result.success 
+            return result 
         } catch (err) {
             console.log(err)
             return err
         }
     } else 
-        return false
+        return {
+                "success": false,
+                "message": `${name} not yet loaded`
+                }
 }
 
-const startCache = async() => {
+const startCache = async(filename='db.sqlite') => {
     try {
-        await openDb("./data/db.sqlite")
-        const result = cachedItems = await runSelectSQL("select * from cache", true)
+        const db = await openDb(filename)
+        console.log(db)
+        const result = await runSelectSQL("select * from cache", true)
         if (result.success)
         {
-            cachedItems = result.rows            
+            cachedItems = result.rows
             console.log(`Cached item${cachedItems.length>1?'s':''} is ${cachedItems.length}`)
         }
     } catch (err) {

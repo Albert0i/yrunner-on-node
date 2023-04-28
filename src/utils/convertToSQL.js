@@ -1,6 +1,4 @@
-const { runSelectSQL } = require('../yrunner')
-
-const convertToSQL = (table, schema) => {
+const convertToCreateSQL = (table, schema) => {
     let sql = ''
     let line = ''
     let primaryKeys = ''
@@ -39,4 +37,38 @@ const convertToSQL = (table, schema) => {
     }
 }
 
-module.exports = { convertToSQL } 
+const convertToInsertSQL = (table, rows) => {
+    let sql = ''
+    let fields = ''
+    let values = ''
+    let quote =''
+
+    if (rows.length===0)
+        return '';
+    else {        
+        for (i=0; i< rows.length; i++)
+        {
+            if (sql !=='') sql += '; '            
+            fields = ''
+            values = '';
+            for (const [key, value] of Object.entries(rows[i])) {
+                //console.log(`${key}: ${typeof value} ${value} `);
+                quote = (typeof value)==='string' ? "'" : "" 
+                if (fields !== '') fields += ', '
+                fields += key 
+                if (values !== '') values += ', '
+                values += quote + value + quote 
+            }            
+            sql += `insert into ${table} (${fields}) values(${values})`
+        }
+
+        return sql 
+    }
+}
+
+module.exports = { convertToCreateSQL, convertToInsertSQL } 
+
+/*
+   Object.entries()
+   https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries
+*/
