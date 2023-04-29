@@ -43,7 +43,7 @@ GET http://localhost:8989/api/v2/yr/tbrelcod
 
 ### V. Reference
 1. [SQLite](https://www.sqlite.org/index.html)
-2. [SQLite Client for Node.js Apps](https://github.com/kriasoft/node-sqlite#readme)
+2. [better-sqlite3](https://www.npmjs.com/package/better-sqlite3)
 3. [SQLite Extraction of Oracle Tables Tools, Methods and Pitfalls](https://www.linuxjournal.com/content/sqlite-extraction-oracle-tables-tools-methods-and-pitfalls)
 4. [The Pit and the Pendulum](https://poemuseum.org/the-pit-and-the-pendulum/)
 
@@ -59,4 +59,4 @@ GET http://localhost:8989/api/v2/yr/tbrelcod
 ```
 
 
-### EOF (2023/04/26)
+### EOF (2023/04/29)
