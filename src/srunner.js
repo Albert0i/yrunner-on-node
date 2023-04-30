@@ -1,9 +1,10 @@
 const Database = require('better-sqlite3')
+const { lowerObjKey, lowerObjKeyArray } = require('./utils/lowerKeys')
 
 let db = null; 
 
 // Open database
-const openDb = (filename='db.sqlite', options={verbose: defaultLogger}) => {
+const openDb = (filename='db.sqlite', options={verbose: logger}) => {
     try {
         db = new Database(filename, options)
         /*
@@ -21,28 +22,38 @@ const openDb = (filename='db.sqlite', options={verbose: defaultLogger}) => {
 }
 
 // Run SQL Statement and return a data table
-const runSelectSQL = (cmdText) => {
+const runSelectSQL = (cmdText, lowerKeys=false) => {
     try {
         const result = db.prepare(cmdText).all()
-
-        return { success: true, rows: result } 
+        if (lowerKeys)
+        {
+            const newResult = lowerObjKeyArray(result)
+            return { success: true, rows: newResult }  
+        }
+        else
+            return { success: true, rows: result } 
     } catch (err) {
         return { success: false, error: err }
     }
 }
 
 // Run SQL Statement and return a value
-const runValueSQL = (cmdText) => {
+const runValueSQL = (cmdText, lowerKeys=false) => {
     try {
         const result = db.prepare(cmdText).get()
-
-        return { success: true, ...result }
+        if (lowerKeys)
+        {
+            const newResult = lowerObjKey(result)
+            return { success: true, ...newResult }  
+        }
+        else
+            return { success: true, ...result }
     } catch (err) {
         return { success: false, error: err }
     }
 }
 
-// Run SQL Statements
+// Run multiple SQL Statements
 const runSQL = (cmdText) => {
     try {
         const result = db.exec(cmdText)
@@ -54,12 +65,25 @@ const runSQL = (cmdText) => {
     }
 }
 
-// Print out every SQL string executed by the database connection.
-const defaultLogger = (cmdText) => {
-    console.info(`> cmdText='${cmdText}'`)
+// Run single SQL Statement
+const runSingleSQL = (cmdText) => {
+    try {
+        const result = db.prepare(cmdText).run()
+
+        return { success: true, rowsAffected: result.changes, rowId: result.lastInsertRowid }   
+    } catch (err) {
+        return { success: false, error: err }
+
+    }
 }
 
-module.exports = { openDb, runSelectSQL, runValueSQL, runSQL } 
+
+// Print out every SQL string executed by the database connection.
+const logger = (cmdText) => {
+    console.info(`> srunner.logger: cmdText="${cmdText}"`)
+}
+
+module.exports = { openDb, runSelectSQL, runValueSQL, runSQL, runSingleSQL } 
 
 /*
    better-sqlite3
@@ -70,6 +94,12 @@ module.exports = { openDb, runSelectSQL, runValueSQL, runSQL }
         crtdate numeric(8, 0),
         crttime numeric(6,0),
         primary key (tabname)
+   );
+   CREATE TABLE CACHE (
+        TABNAME CHAR(40),
+        CRTDATE NUMERIC(8, 0),
+        CRTTIME NUMERIC(6,0),
+        CONSTRAINT CACHE_PK PRIMARY KEY (TABNAME)
    );
    insert into cache values('table1', 1, 2);
    insert into cache values('table2', 3, 4);
