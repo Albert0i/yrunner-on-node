@@ -54,9 +54,9 @@ const runValueSQL = (cmdText, lowerKeys=false) => {
 }
 
 // Run multiple SQL Statements
-const runSQL = (cmdText) => {
+const runSQL = (cmdTextArray) => {
     try {
-        const result = db.exec(cmdText)
+        const result = db.exec(cmdTextArray.join(';'))
 
         return { success: true, result }   
     } catch (err) {
@@ -65,12 +65,12 @@ const runSQL = (cmdText) => {
     }
 }
 
-// Run single SQL Statement
-const runSingleSQL = (cmdText) => {
+// Run SQL Insert Statement and return the auto increment row id
+const runInsertSQLYieldRowID = (cmdText, rowIdName = "id") => {
     try {
         const result = db.prepare(cmdText).run()
 
-        return { success: true, rowsAffected: result.changes, rowId: result.lastInsertRowid }   
+        return { success: true, rowsAffected: result.changes, [rowIdName]: result.lastInsertRowid }   
     } catch (err) {
         return { success: false, error: err }
 
@@ -83,27 +83,23 @@ const logger = (cmdText) => {
     console.info(`> srunner.logger: cmdText="${cmdText}"`)
 }
 
-module.exports = { openDb, runSelectSQL, runValueSQL, runSQL, runSingleSQL } 
+module.exports = { openDb, runSelectSQL, runValueSQL, runSQL, runInsertSQLYieldRowID } 
 
 /*
    better-sqlite3
    https://www.npmjs.com/package/better-sqlite3
 
-   create table cache (
-        tabname char(40),
-        crtdate numeric(8, 0),
-        crttime numeric(6,0),
-        primary key (tabname)
+   CREATE TABLE __cache__ (
+        tabname CHAR(40),
+        crtdate NUMERIC(8, 0),
+        crttime NUMERIC(6,0),
+
+        CONSTRAINT __cache__pk PRIMARY KEY (tabname)
    );
-   CREATE TABLE CACHE (
-        TABNAME CHAR(40),
-        CRTDATE NUMERIC(8, 0),
-        CRTTIME NUMERIC(6,0),
-        CONSTRAINT CACHE_PK PRIMARY KEY (TABNAME)
-   );
-   insert into cache values('table1', 1, 2);
-   insert into cache values('table2', 3, 4);
-   insert into cache values('table3', 5, 6);
-   insert into cache values('table4', 7, 8);
-   insert into cache values('table5', 9, 10);
+
+   INSERT INTO __cache__ (tabname, crtdate, crttime) VALUES('table1', 1, 2);
+   INSERT INTO __cache__ (tabname, crtdate, crttime) VALUES('table2', 3, 4);
+   INSERT INTO __cache__ (tabname, crtdate, crttime) VALUES('table3', 5, 6);
+   INSERT INTO __cache__ (tabname, crtdate, crttime) VALUES('table4', 7, 8);
+   INSERT INTO __cache__ (tabname, crtdate, crttime) values('table5', 9, 10);
 */

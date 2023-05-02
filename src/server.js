@@ -5,6 +5,7 @@ const morgan = require('morgan')
 const path = require('path')
 const rfs = require('rotating-file-stream') // version 2.x
 const { router : yrunnerRoute } = require('./routes/yrunnerRoute')
+const { router : srunnerRoute } = require('./routes/srunnerRoute')
 const { router : cacheRoute } = require('./routes/cacheRoute')
 const { handle404 } = require('./middleware/handle404')
 const { showBanners } = require('./utils/showBanners')
@@ -27,6 +28,7 @@ app.use(morgan('combined', { stream: accessLogStream }))
 app.use('/api/v1/yr', yrunnerRoute)
 
 // version 2
+app.use('/api/v2/sr', srunnerRoute)
 app.use('/api/v2/cache', cacheRoute)
 
 app.all('/*', handle404)

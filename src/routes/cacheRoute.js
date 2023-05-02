@@ -8,14 +8,15 @@ const { convertToCreateSQL, convertToInsertSQL } = require('../utils/convertToSQ
 const { getCachedItems, addItem, removeItem } = require('../cache')
 
 router.post('/schema/:table', verifyPassphrase, async (req, res) => {
-    const sql = schemaSQL.replace('myOwner', dbConfig.user).replace('myTable', req.params.table)
+    const table = req.params.table.toLowerCase()
+    const sql = schemaSQL.replace('myOwner', dbConfig.user).replace('myTable', table)
     const result = await runSelectSQL(sql, true)
 
     res.status(result.success ? 200 : 400).json(result)
 })
 
 router.post('/schema/:table/sqlite', verifyPassphrase, async (req, res) => {
-    const table = req.params.table
+    const table = req.params.table.toLowerCase()
     const sql = schemaSQL.replace('myOwner', dbConfig.user).replace('myTable', table)
     const result = await runSelectSQL(sql, true)
 
@@ -26,8 +27,8 @@ router.post('/schema/:table/sqlite', verifyPassphrase, async (req, res) => {
 })
 
 router.post('/schema/:table/data', verifyPassphrase, async (req, res) => {
-    const table = req.params.table    
-    const result = await runSelectSQL(`select * from ${table}`, true)
+    const table = req.params.table.toLowerCase()
+    const result = await runSelectSQL(`SELECT * FROM ${table}`, true)
     
     if (result.success) 
         res.status(200).json({ success: true, sql: convertToInsertSQL(table, result.rows)})
@@ -41,22 +42,22 @@ router.post('/status', verifyPassphrase, async (req, res) => {
 })
 
 router.post('/load/:table', verifyPassphrase, async (req, res) => {
-    const table = req.params.table
+    const table = req.params.table.toLowerCase()
     // schema 
     const sql = schemaSQL.replace('myOwner', dbConfig.user).replace('myTable', table)
     const resultSchema = await runSelectSQL(sql, true)
     const schema = convertToCreateSQL(table, resultSchema.rows)
     // data     
-    const resultData = await runSelectSQL(`select * from ${table}`, true)
+    const resultData = await runSelectSQL(`SELECT * FROM ${table}`, true)
     const data = convertToInsertSQL(table, resultData.rows)
 
-    const result = await addItem(req.params.table, schema, data)    
+    const result = addItem(req.params.table, schema, data)
     
     res.status(result ? 200 : 400).json(result)
 })
 
 router.post('/unload/:table', verifyPassphrase, async (req, res) => {
-    const result = await removeItem(req.params.table)
+    const result = removeItem(req.params.table.toLowerCase())
 
     res.status(result ? 200 : 400).json(result)
 })

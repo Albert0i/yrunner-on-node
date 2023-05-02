@@ -9,14 +9,15 @@ const convertToCreateSQL = (table, schema) => {
         for (i=0; i< schema.length; i++)
         {
             if (sql !=='') sql += ', '
-            switch(schema[i].data_type) {
+            line = `${schema[i].column_name.toLowerCase()} `
+            switch(schema[i].data_type) {                
                 case 'CHAR':
                 case 'VARCHAR':
                 case 'VARCHAR2':                  
-                    line = `${schema[i].column_name} CHAR(${schema[i].data_length})`
+                    line += `CHAR(${schema[i].data_length})`
                     break;
                 case 'NUMBER':  
-                    line = `${schema[i].column_name} DECIMAL(${schema[i].data_precision}, ${schema[i].data_scale})` 
+                    line += `DECIMAL(${schema[i].data_precision}, ${schema[i].data_scale})` 
                     break;
                 default:
                   // code block
@@ -25,13 +26,14 @@ const convertToCreateSQL = (table, schema) => {
             {
                 if (primaryKeys !== '')
                     primaryKeys += ', ';
-                primaryKeys += schema[i].column_name
+                primaryKeys += schema[i].column_name.toLowerCase()
             }
             sql += line 
         }
         if (primaryKeys !== '')
-            line = `, PRIMARY KEY(${primaryKeys})`;
-        sql = `CREATE TABLE ${table.toUpperCase()} ( ${sql}${line} ); `
+            //line = `, PRIMARY KEY(${primaryKeys})`;
+            line = `, CONSTRAINT ${table}_pk PRIMARY KEY(${primaryKeys})`;
+        sql = `CREATE TABLE ${table.toLowerCase()} ( ${sql}${line} ); `
         
         return sql 
     }
@@ -41,25 +43,24 @@ const convertToInsertSQL = (table, rows) => {
     let sql = ''
     let fields = ''
     let values = ''
-    let quote =''
 
     if (rows.length===0)
         return '';
     else {        
         for (i=0; i< rows.length; i++)
-        {
-            if (sql !=='') sql += '; '            
+        {            
             fields = ''
             values = '';
             for (const [key, value] of Object.entries(rows[i])) {
-                //console.log(`${key}: ${typeof value} ${value} `);
-                quote = (typeof value)==='string' ? "'" : "" 
                 if (fields !== '') fields += ', '
-                fields += key 
+                fields += key.toLowerCase()
                 if (values !== '') values += ', '
-                values += quote + value + quote 
+                if ((typeof value)==='string')
+                    values += "'" + value.trim().toLowerCase().replace("'", "''") + "'"
+                else
+                    values += value
             }            
-            sql += `insert into ${table} (${fields}) values(${values})`
+            sql += `INSERT INTO ${table} (${fields}) VALUES(${values});`
         }
 
         return sql 

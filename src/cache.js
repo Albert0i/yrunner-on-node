@@ -1,4 +1,4 @@
-const { runSQL, runSelectSQL, openDb } = require('./lrunner')
+const { runSQL, runSelectSQL, openDb } = require('./srunner')
 const { yyyymmdd, hhmmss } = require('./utils/datetime')
 
 let cachedItems = []
@@ -13,59 +13,50 @@ const isCached = (name) => {
     return cachedItems.find(row => row.tabname.toLowerCase() === lcName);
 }
 
-const addItem = async (name, schema, data) => {
-    const lcName = name.toLowerCase()
-    console.log('schema=', schema)
-    console.log('data=', data)
-    if (! isCached(lcName)) 
-    {        
-        try {
-            const crtdate = yyyymmdd()
-            const crttime = hhmmss()
-            // Add entry to cache
+const addItem = (name, schema, data) => {
+    if (! isCached(name)) 
+    { 
+        const crtdate = yyyymmdd()
+        const crttime = hhmmss()
+        // Add entry to cache
+        const result = runSQL([`INSERT INTO __cache__ VALUES('${name}', ${crtdate}, ${crttime})`, 
+                                schema, 
+                                data ])
 
-            const result = await runSQL(`insert into cache values('${lcName}', ${crtdate}, ${crttime})`)
-                
-
-            // Add entry memory!!!
-            cachedItems.push({ tabname: lcName, crtdate, crttime})
-            return result
-        } catch (err) {
-            console.log(err)
-            return err
-        }    
-    } else 
-    return {
-        "success": false,
-        "message": `${name} already loaded`
+        // Add entry memory
+        if (result.success)
+            cachedItems.push({ tabname: name, crtdate, crttime})
+        else 
+            console.log(result)
+        return result
+    } else {
+        return {
+            "success": false,
+            "message": `${name} already loaded`
         }
+    }
 }
 
-const removeItem = async (name) => {
-    const lcName = name.toLowerCase()
-
-    if (isCached(lcName)) 
+const removeItem = (name) => {
+    if (isCached(name)) 
     {   
         // Remove entry from memory!!!
-        cachedItems = cachedItems.filter(row => row.tabname !== lcName)
-        try {
-            // Remove entry from cache 
-            const result = await runSQL(`delete from cache where tabname='${lcName}'; drop table ${lcName}`)
-            // Remove data from cache 
+        cachedItems = cachedItems.filter(row => row.tabname !== name)
 
+            // Remove entry from cache 
+            const result = runSQL([`DELETE FROM __cache__ WHERE tabname='${name}'`,
+                                   `DROP TABLE ${name}`])
+            if (! result.success)
+                console.log(result)                
             return result 
-        } catch (err) {
-            console.log(err)
-            return err
-        }
     } else 
         return {
-                "success": false,
-                "message": `${name} not yet loaded`
+            "success": false,
+            "message": `${name} not yet loaded`
                 }
 }
 
-const updateItem = async (name, cmdText) => {
+const updateItem = (name, cmdText) => {
     const cmdType = cmdText.split(' ')[0].toLowerCase()
 
     switch (cmdType) {
@@ -79,18 +70,18 @@ const updateItem = async (name, cmdText) => {
 }
 
 const startCache = async(filename='db.sqlite') => {
-    try {
-        const db = await openDb(filename)
-        console.log(db)
-        const result = await runSelectSQL("select * from cache", true)
-        if (result.success)
-        {
-            cachedItems = result.rows
-            console.log(`Cached item${cachedItems.length>1?'s':''} is ${cachedItems.length}`)
-        }
-    } catch (err) {
-        console.log(err)
+    const db = openDb(filename)
+    console.log(db)
+    const result = runSelectSQL("SELECT * FROM __cache__", true)
+    if (result.success)
+        cachedItems = result.rows
+    else {
+        console.log(result)
+        // Try to re-create __cache__ table... 
+        const newResult = runSQL(["CREATE TABLE __cache__ ( tabname CHAR(40), crtdate NUMERIC(8, 0), crttime NUMERIC(6,0), CONSTRAINT __cache__pk PRIMARY KEY (tabname) );"])
+        console.log(newResult)
     }
+    console.log(`Cached item${cachedItems.length>1?'s':''} is ${cachedItems.length}`)
 }
 
 module.exports = { startCache, getCachedItems, isCached, addItem, removeItem } 
