@@ -69,8 +69,8 @@ const updateItem = (name, cmdText) => {
     }
 }
 
-const startCache = async(filename='db.sqlite') => {
-    const db = openDb(filename)
+const startCache = (filename='db.sqlite', options) => {
+    const db = openDb(filename, options)
     console.log(db)
     const result = runSelectSQL("SELECT * FROM __cache__", true)
     if (result.success)

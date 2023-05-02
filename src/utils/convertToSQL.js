@@ -30,9 +30,11 @@ const convertToCreateSQL = (table, schema) => {
             }
             sql += line 
         }
-        if (primaryKeys !== '')
-            //line = `, PRIMARY KEY(${primaryKeys})`;
+        if (primaryKeys !== '')                
             line = `, CONSTRAINT ${table}_pk PRIMARY KEY(${primaryKeys})`;
+        else 
+            line = ''
+            
         sql = `CREATE TABLE ${table.toLowerCase()} ( ${sql}${line} ); `
         
         return sql 

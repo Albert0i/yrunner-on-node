@@ -36,7 +36,7 @@ app.all('/*', handle404)
 app.listen(process.env.SERVER_PORT, () => {
     console.log(`Server started on ${process.env.SERVER_PORT}...`)    
     showBanners()
-    startCache(path.join(__dirname, 'data', 'db.sqlite'))
+    startCache(path.join(__dirname, 'data', 'db.sqlite'), null)
 })
 
 /*

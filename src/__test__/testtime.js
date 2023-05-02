@@ -17,7 +17,8 @@ function pad(num, size) {
     return s.substr(s.length-size)
 }
 
-module.exports = { yyyymmdd, hhmmss } 
+console.log(yyyymmdd())
+console.log(hhmmss())
 
 /*
    How to Get Current Date & Time in JavaScript
@@ -26,3 +27,12 @@ module.exports = { yyyymmdd, hhmmss }
    How to output numbers with leading zeros in JavaScript? [duplicate]
    https://stackoverflow.com/questions/2998784/how-to-output-numbers-with-leading-zeros-in-javascript
 */
+
+// var today = new Date();
+// var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+
+// var today = new Date();
+// var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+
+// console.log(date)
+// console.log(time)

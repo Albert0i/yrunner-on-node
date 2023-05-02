@@ -46,14 +46,22 @@ router.post('/load/:table', verifyPassphrase, async (req, res) => {
     // schema 
     const sql = schemaSQL.replace('myOwner', dbConfig.user).replace('myTable', table)
     const resultSchema = await runSelectSQL(sql, true)
-    const schema = convertToCreateSQL(table, resultSchema.rows)
-    // data     
-    const resultData = await runSelectSQL(`SELECT * FROM ${table}`, true)
-    const data = convertToInsertSQL(table, resultData.rows)
 
-    const result = addItem(req.params.table, schema, data)
+    if (resultSchema.success && resultSchema.rows.length !== 0) 
+    {
+        const schema = convertToCreateSQL(table, resultSchema.rows)
+        // data     
+        const resultData = await runSelectSQL(`SELECT * FROM ${table}`, true)
+        const data = convertToInsertSQL(table, resultData.rows)
     
-    res.status(result ? 200 : 400).json(result)
+        const result = addItem(req.params.table, schema, data)
+        
+        res.status(result ? 200 : 400).json(result)
+    } else {
+        res.status(400).json({ success: false, message: "ORA-00942: table or view does not exist"})
+    }
+
+    
 })
 
 router.post('/unload/:table', verifyPassphrase, async (req, res) => {
