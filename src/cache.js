@@ -10,7 +10,7 @@ const getCachedItems = () => {
 const isCached = (name) => {    
     const lcName = name.toLowerCase()
 
-    return cachedItems.find(row => row.tabname.toLowerCase() === lcName);
+    return cachedItems.find(row => row.tabname.toLowerCase() === lcName) !== undefined;
 }
 
 const addItem = (name, schema, data) => {
@@ -81,7 +81,7 @@ const startCache = (filename='db.sqlite', options) => {
         const newResult = runSQL(["CREATE TABLE __cache__ ( tabname CHAR(40), crtdate NUMERIC(8, 0), crttime NUMERIC(6,0), CONSTRAINT __cache__pk PRIMARY KEY (tabname) );"])
         console.log(newResult)
     }
-    console.log(`Cached item${cachedItems.length>1?'s':''} is ${cachedItems.length}`)
+    console.log(`Number of cached item${cachedItems.length>1?'s':''} ${cachedItems.length>1?'are':'is'} ${cachedItems.length}.`)
 }
 
 module.exports = { startCache, getCachedItems, isCached, addItem, removeItem } 

@@ -5,6 +5,8 @@ const verifyCmdText = require('../middleware/veryfiCmdText')
 const verifyCmdTextArray = require('../middleware/verifyCmdTextArray')
 const verifyCmdTextInsert = require('../middleware/veryfiCmdTextInsert')
 const { runSQL, runValueSQL, runSelectSQL, runInsertSQLYieldRowID } = require('../yrunner')
+const { isCached } = require('../cache')
+const { runSelectSQL:runSelectSQLFromCache } = require('../srunner')
 const { handle404 } = require('../middleware/handle404')
 const url = require('url');
 
@@ -48,7 +50,7 @@ router.get('/:table', verifyPassphrase, async (req, res) => {
     const _offset = query._offset
     const _limit = query._limit
     const _lowerKeys = query._lowerKeys
-    const cmdText = `SELECT * FROM ${table} ` +
+    let cmdText = `SELECT * FROM ${table} ` +
                      (query._filter? `WHERE ${_filter} ` : ' ') + 
                      (query._sort? `ORDER BY ${_sort} ` : ' ') +
                      (query._order? `${_order} ` : ' ') + 
@@ -57,10 +59,22 @@ router.get('/:table', verifyPassphrase, async (req, res) => {
 
     if (query._norun)
         return res.status(200).json({cmdText})
+    //console.log(`isCached=${isCached(table)}`)
+    //const result = await runSelectSQL(cmdText, _lowerKeys)
+    let result = null
+    if (isCached(table)) {
+        cmdText = `SELECT * FROM ${table} ` +
+                   (query._filter? `WHERE ${_filter} ` : ' ') + 
+                   (query._sort? `ORDER BY ${_sort} ` : ' ') +
+                   (query._order? `${_order.toUpperCase()} ` : ' ') + 
+                   (query._limit? `LIMIT ${_limit} ` : ' ') + 
+                   (query._offset? `OFFSET ${_offset} ` : ' ')
+            result = runSelectSQLFromCache(cmdText, _lowerKeys)
+    }
+    else
+        result = await runSelectSQL(cmdText, _lowerKeys)
 
-    const result = await runSelectSQL(cmdText, _lowerKeys)
-
-    res.status(result.success ? 200 : 400).json({cmdText, ...result})
+    res.status(result.success ? 200 : 400).json({cmdText, ...result, isCached: isCached(table)})
 })
 
 // Get one 
@@ -74,14 +88,20 @@ router.get('/:table/:key', verifyPassphrase, async (req, res) => {
     const cmdText = `SELECT * FROM ${table} WHERE ${_keyname}=${quote}${keyvalue}${quote}`
 
     if (query._norun)
-        return res.status(200).json({cmdText})
-
-    const result = await runSelectSQL(cmdText, _lowerKeys)
+        return res.status(200).json({cmdText})    
+    //console.log(`isCached=${isCached(table)}`)
+    //const result = await runSelectSQL(cmdText, _lowerKeys)
+    let result = null;
+    if (isCached(table))
+        result = runSelectSQLFromCache(cmdText, _lowerKeys)
+    else
+        result = await runSelectSQL(cmdText, _lowerKeys)
 
     res.status(result.success ? 200 : 400).json({
         cmdText, 
         success: result.success, 
-        row: (result.rows[0] ? result.rows[0] : null)
+        row: (result.rows[0] ? result.rows[0] : null), 
+        isCached: isCached(table)
     })
 })
 
