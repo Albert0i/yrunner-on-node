@@ -1,6 +1,6 @@
 const sqlite3 = require('sqlite3')
 const { open } = require('sqlite')
-const { lowerObjKey, lowerObjKeyArray } = require('./utils/lowerKeys')
+const { lowerObjKey, lowerObjKeyArray } = require('../utils/lowerKeys')
 
 let db = null; 
 
