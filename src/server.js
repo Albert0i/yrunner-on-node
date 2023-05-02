@@ -31,7 +31,7 @@ app.use('/api/v1/yr', yrunnerRoute)
 // version 2
 app.use('/api/v2/sr', srunnerRoute)
 app.use('/api/v2/cache', cacheRoute)
-app.use('/api/v2/yr', yrunnerRoute)
+app.use('/api/v2/yr', yrunnerRouteV2)
 
 app.all('/*', handle404)
 

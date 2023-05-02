@@ -40,7 +40,7 @@ router.post('/runinsertsqlyieldrowid', verifyPassphrase, verifyCmdTextInsert, as
 */
 // Get all 
 router.get('/:table', verifyPassphrase, async (req, res) => {
-    const table = req.params.table
+    const table = req.params.table.toLowerCase()
     const query = url.parse(req.url,true).query
     const _filter = query._filter
     const _sort = query._sort
@@ -48,12 +48,12 @@ router.get('/:table', verifyPassphrase, async (req, res) => {
     const _offset = query._offset
     const _limit = query._limit
     const _lowerKeys = query._lowerKeys
-    const cmdText = `select * from ${table} ` +
-                     (query._filter? `where ${_filter} ` : ' ') + 
-                     (query._sort? `order by ${_sort} ` : ' ') +
+    const cmdText = `SELECT * FROM ${table} ` +
+                     (query._filter? `WHERE ${_filter} ` : ' ') + 
+                     (query._sort? `ORDER BY ${_sort} ` : ' ') +
                      (query._order? `${_order} ` : ' ') + 
-                     (query._offset? `offset ${_offset} rows ` : ' ') + 
-                     (query._limit? `fetch next ${_limit} rows only ` : ' ')
+                     (query._offset? `OFFSET ${_offset} ROWS ` : ' ') + 
+                     (query._limit? `FETCH NEXT ${_limit} ROWS ONLY ` : ' ')
 
     if (query._norun)
         return res.status(200).json({cmdText})
@@ -65,13 +65,13 @@ router.get('/:table', verifyPassphrase, async (req, res) => {
 
 // Get one 
 router.get('/:table/:key', verifyPassphrase, async (req, res) => {
-    const table = req.params.table
+    const table = req.params.table.toLowerCase()
     const query = url.parse(req.url,true).query    
     const _keyname = query._keyname || "id"
     const quote = query._keytype==="string" ? "'" : ""   
     const keyvalue = req.params.key
     const _lowerKeys = query._lowerKeys
-    const cmdText = `select * from ${table} where ${_keyname}=${quote}${keyvalue}${quote}`
+    const cmdText = `SELECT * FROM ${table} WHERE ${_keyname}=${quote}${keyvalue}${quote}`
 
     if (query._norun)
         return res.status(200).json({cmdText})
@@ -87,7 +87,7 @@ router.get('/:table/:key', verifyPassphrase, async (req, res) => {
 
 // Create one
 router.post('/:table', verifyPassphrase, async (req, res) => {
-    const table = req.params.table
+    const table = req.params.table.toLowerCase()
     const query = url.parse(req.url,true).query
     let fieldList = ''
     let valueList = ''
@@ -99,7 +99,7 @@ router.post('/:table', verifyPassphrase, async (req, res) => {
         fieldList += key 
         valueList += ((typeof value)==='string'?"'":"") + value + ((typeof value)==='string'?"'":"")
     }
-    const cmdText = `insert into ${table} (${fieldList}) values(${valueList})`
+    const cmdText = `INSERT INTO ${table} (${fieldList}) VALUES(${valueList})`
 
     if (query._norun)
         return res.status(200).json({cmdText})
@@ -111,7 +111,7 @@ router.post('/:table', verifyPassphrase, async (req, res) => {
 
 // Update one
 router.patch('/:table/:key', verifyPassphrase, async (req, res) => {
-    const table = req.params.table
+    const table = req.params.table.toLowerCase()
     const query = url.parse(req.url,true).query    
     const _keyname = query._keyname || "id" 
     const quote = query._keytype==="string" ? "'" : ""   
@@ -123,7 +123,7 @@ router.patch('/:table/:key', verifyPassphrase, async (req, res) => {
         
         setList += `${key}=${((typeof value)==='string'?"'":"")}${value}${((typeof value)==='string'?"'":"")}`
     }
-    const cmdText = `update ${table} set ${setList} where ${_keyname}=${quote}${keyvalue}${quote} `
+    const cmdText = `UPDATE ${table} SET ${setList} WHERE ${_keyname}=${quote}${keyvalue}${quote} `
     
     if (query._norun)
         return res.status(200).json({cmdText})
@@ -135,12 +135,12 @@ router.patch('/:table/:key', verifyPassphrase, async (req, res) => {
 
 // Delete one 
 router.delete('/:table/:key', verifyPassphrase, async (req, res) => {
-    const table = req.params.table
+    const table = req.params.table.toLowerCase()
     const query = url.parse(req.url,true).query    
     const _keyname = query._keyname || "id" 
     const quote = query._keytype==="string" ? "'" : ""   
     const keyvalue = req.params.key
-    const cmdText = `delete from ${table} where ${_keyname}=${quote}${keyvalue}${quote}`
+    const cmdText = `DELETE FROM ${table} WHERE ${_keyname}=${quote}${keyvalue}${quote}`
     
     if (query._norun)
         return res.status(200).json({cmdText})
