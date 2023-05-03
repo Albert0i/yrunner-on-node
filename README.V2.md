@@ -15,30 +15,44 @@ Mors ubi dira fuit vita salusque patent.<br />
 In the realm of database, data are treated in different ways. Data, per se, can be divided into [transactional](https://www.tibco.com/reference-center/what-is-transactional-data) and non-transactional. Code tables, such as employee names, product categories, site/location addresses, are typical non-transactional and be always referenced by transactional data. Since they are infrequently changed, caching code tables lest round-tripping to backend database again and again for the same set of data can be a performance boost especially for tight budget system. 
 
 
-### I. Caching data
+### I. Load/Unload cache
+1. Show cache status 
 ```
-POST localhost:8989/api/v2/schema/tbrelcod
-POST localhost:8989/api/v2/schema/tbrelcod/sql
+POST http://localhost:8989/api/v2/cache/status
 ```
+
+2. Load table into cache
 ```
-POST localhost:8989/api/v2/cache/status 
-POST localhost:8989/api/v2/cache/load/tbrelcod
-POST localhost:8989/api/v2/cache/reload/unload 
+POST http://localhost:8989/api/v2/cache/load/tbrelcod
+```
+
+3. Unload table from cache 
+```
+POST http://localhost:8989/api/v2/cache/unload/tbrelcod
 ```
 
 
 ### II. Using cached data
+1. Get all
 ```
 GET http://localhost:8989/api/v2/yr/tbrelcod
 ```
 
-
-### III. Refreshing data
+2. Get all with options
 ```
+GET http://localhost:8989/api/v2/yr/tbrelcod?_filter=relcod>='20'&_sort=relcod&_order=asc&_offset=5&_limit=10&_lowerKeys=true
 ```
 
+3. Get one 
+```
+GET http://localhost:8989/api/v2/yr/tbrelcod/99?_keyname=relcod&_keytype=string&_lowerKeys=true
+```
+
+### III. SQLite-server 
+check [here](https://github.com/Albert0i/sqlite-server.git)
 
 ### IV. Summary 
+A year ago, an experimental version of YRunner was designed and implemented in an effort to [Caching SQL results with Redis](https://github.com/Albert0i/misdoc/blob/main/CSRWR.md). As performance continues to be an issue and so does the cache. If there is no difference in reading remote and local database, why bother to stack up one more layer to the code? 
 
 
 ### V. Reference
@@ -59,4 +73,4 @@ GET http://localhost:8989/api/v2/yr/tbrelcod
 ```
 
 
-### EOF (2023/04/29)
+### EOF (2023/05/03)
