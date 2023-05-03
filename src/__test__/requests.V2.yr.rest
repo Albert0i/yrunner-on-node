@@ -1,7 +1,7 @@
 ### YRunner Direct
 
 ### runSelectSQL
-POST http://localhost:8989/api/v1/yr/runselectsql
+POST http://localhost:8989/api/v2/yr/runselectsql
 Content-Type: application/json
 Authorization: Bearer VEUdEii4n7nCvofaBRJEC
 
@@ -11,7 +11,7 @@ Authorization: Bearer VEUdEii4n7nCvofaBRJEC
 }
 
 ### runValueSQL
-POST http://localhost:8989/api/v1/yr/runvaluesql
+POST http://localhost:8989/api/v2/yr/runvaluesql
 Content-Type: application/json
 Authorization: Bearer VEUdEii4n7nCvofaBRJEC
 
@@ -21,7 +21,7 @@ Authorization: Bearer VEUdEii4n7nCvofaBRJEC
 }
 
 ### runSQL
-POST http://localhost:8989/api/v1/yr/runsql
+POST http://localhost:8989/api/v2/yr/runsql
 Content-Type: application/json
 Authorization: Bearer VEUdEii4n7nCvofaBRJEC
 
@@ -34,7 +34,7 @@ Authorization: Bearer VEUdEii4n7nCvofaBRJEC
 }
 
 ### runInsertSQLYieldRowID
-POST http://localhost:8989/api/v1/yr/runinsertsqlyieldrowid
+POST http://localhost:8989/api/v2/yr/runinsertsqlyieldrowid
 Content-Type: application/json
 Authorization: Bearer VEUdEii4n7nCvofaBRJEC
 
@@ -51,29 +51,13 @@ GET http://localhost:8989/api/v2/yr/tbrelcod
 Content-Type: application/json
 Authorization: Bearer VEUdEii4n7nCvofaBRJEC
 
-###
-GET http://localhost:8989/api/v2/yr/tbphysts
-Content-Type: application/json
-Authorization: Bearer VEUdEii4n7nCvofaBRJEC
-
 ### Get all with options 
 GET http://localhost:8989/api/v2/yr/tbrelcod?_filter=relcod>='20'&_sort=relcod&_order=asc&_offset=5&_limit=10&_lowerKeys=true
 Content-Type: application/json
 Authorization: Bearer VEUdEii4n7nCvofaBRJEC
 
-###
-GET http://localhost:8989/api/v2/yr/tbphysts?_filter=physts>='10'&_sort=physts&_order=asc&_offset=5&_limit=10&_lowerKeys=true
-Content-Type: application/json
-Authorization: Bearer VEUdEii4n7nCvofaBRJEC
-
 ### Get one
-
 GET http://localhost:8989/api/v2/yr/tbrelcod/99?_keyname=relcod&_keytype=string&_lowerKeys=true
-Content-Type: application/json
-Authorization: Bearer VEUdEii4n7nCvofaBRJEC
-
-###
-GET http://localhost:8989/api/v2/yr/tbphysts/00?_keyname=physts&_keytype=string&_lowerKeys=true
 Content-Type: application/json
 Authorization: Bearer VEUdEii4n7nCvofaBRJEC
 

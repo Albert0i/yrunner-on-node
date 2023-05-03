@@ -56,19 +56,6 @@ const removeItem = (name) => {
                 }
 }
 
-const updateItem = (name, cmdText) => {
-    const cmdType = cmdText.split(' ')[0].toLowerCase()
-
-    switch (cmdType) {
-        case "insert": 
-                        break; 
-        case "update": 
-                        break; 
-        case "insert": 
-                        break; 
-    }
-}
-
 const startCache = (filename='db.sqlite', options) => {
     const db = openDb(filename, options)
     console.log(db)

@@ -6,7 +6,7 @@ const verifyCmdTextArray = require('../middleware/verifyCmdTextArray')
 const verifyCmdTextInsert = require('../middleware/veryfiCmdTextInsert')
 const { runSQL, runValueSQL, runSelectSQL, runInsertSQLYieldRowID } = require('../yrunner')
 const { isCached } = require('../cache')
-const { runSelectSQL:runSelectSQLFromCache } = require('../srunner')
+const { runSelectSQL:runSelectSQLFromCache, runSQL:runSQLFromCache } = require('../srunner')
 const { handle404 } = require('../middleware/handle404')
 const url = require('url');
 
@@ -59,7 +59,7 @@ router.get('/:table', verifyPassphrase, async (req, res) => {
 
     if (query._norun)
         return res.status(200).json({cmdText})
-    //console.log(`isCached=${isCached(table)}`)
+    
     //const result = await runSelectSQL(cmdText, _lowerKeys)
     let result = null
     if (isCached(table)) {
@@ -89,7 +89,7 @@ router.get('/:table/:key', verifyPassphrase, async (req, res) => {
 
     if (query._norun)
         return res.status(200).json({cmdText})    
-    //console.log(`isCached=${isCached(table)}`)
+    
     //const result = await runSelectSQL(cmdText, _lowerKeys)
     let result = null;
     if (isCached(table))
@@ -125,7 +125,12 @@ router.post('/:table', verifyPassphrase, async (req, res) => {
         return res.status(200).json({cmdText})
 
     const result = await runSQL([cmdText])
-
+    if (isCached(table)) {
+        cacheResult = runSQLFromCache([cmdText])
+        if (!cacheResult.success)
+            console.log(cacheResult)
+        return res.status(result.success ? 201 : 400).json({cmdText, ...result, cacheInsert: cacheResult.success})    
+    }
     res.status(result.success ? 201 : 400).json({cmdText, ...result})
 })
 
@@ -149,7 +154,12 @@ router.patch('/:table/:key', verifyPassphrase, async (req, res) => {
         return res.status(200).json({cmdText})
 
     const result = await runSQL([cmdText])
-
+    if (isCached(table)) {
+        cacheResult = runSQLFromCache([cmdText])
+        if (!cacheResult.success)
+            console.log(cacheResult)
+        return res.status(result.success ? 201 : 400).json({cmdText, ...result, cacheUpdate: cacheResult.success})    
+    }
     res.status(result.success ? 200 : 400).json({cmdText, ...result})
 })
 
@@ -166,7 +176,12 @@ router.delete('/:table/:key', verifyPassphrase, async (req, res) => {
         return res.status(200).json({cmdText})
 
     const result = await runSQL([cmdText])
-
+    if (isCached(table)) {
+        cacheResult = runSQLFromCache([cmdText])
+        if (!cacheResult.success)
+            console.log(cacheResult)
+        return res.status(result.success ? 201 : 400).json({cmdText, ...result, cacheDelete: cacheResult.success})    
+    }
     res.status(result.success ? 200 : 400).json({cmdText, ...result})
 })
 
