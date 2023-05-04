@@ -1,19 +1,19 @@
 ### Cache 
 
 ### schema (JSON)
-POST http://localhost:8989/api/v2/cache/schema/scapptd
+POST http://localhost:8989/api/v2/cache/schema/tbrelcod
 Content-Type: application/json
 Authorization: Bearer VEUdEii4n7nCvofaBRJEC
 
 
 ### schema (SQLite)
-POST http://localhost:8989/api/v2/cache/schema/scapptd/sqlite
+POST http://localhost:8989/api/v2/cache/schema/tbrelcod/sqlite
 Content-Type: application/json
 Authorization: Bearer VEUdEii4n7nCvofaBRJEC
 
 
 ### schema (data)
-POST http://localhost:8989/api/v2/cache/schema/scapptd/data
+POST http://localhost:8989/api/v2/cache/schema/tbrelcod/data
 Content-Type: application/json
 Authorization: Bearer VEUdEii4n7nCvofaBRJEC
 
@@ -25,7 +25,7 @@ Authorization: Bearer VEUdEii4n7nCvofaBRJEC
 
 
 ### load
-POST http://localhost:8989/api/v2/cache/load/scapptd
+POST http://localhost:8989/api/v2/cache/load/tbrelcod
 Content-Type: application/json
 Authorization: Bearer VEUdEii4n7nCvofaBRJEC
 
