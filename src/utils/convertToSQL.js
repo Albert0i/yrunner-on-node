@@ -16,8 +16,11 @@ const convertToCreateSQL = (table, schema) => {
                 case 'VARCHAR2':                  
                     line += `CHAR(${schema[i].data_length})`
                     break;
-                case 'NUMBER':  
-                    line += `DECIMAL(${schema[i].data_precision}, ${schema[i].data_scale})` 
+                case 'NUMBER':
+                    if (schema[i].data_precision && schema[i].data_scale)
+                        line += `DECIMAL(${schema[i].data_precision}, ${schema[i].data_scale})` 
+                    else 
+                        line += 'INTEGER' 
                     break;
                 default:
                   // code block
@@ -58,7 +61,7 @@ const convertToInsertSQL = (table, rows) => {
                 fields += key.toLowerCase()
                 if (values !== '') values += ', '
                 if ((typeof value)==='string')
-                    values += "'" + value.trim().toLowerCase().replace("'", "''") + "'"
+                    values += "'" + value.trim().replace("'", "''") + "'"
                 else
                     values += value
             }            
