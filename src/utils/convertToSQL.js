@@ -69,7 +69,7 @@ const convertToInsertSQL = (table, rows) => {
 
                 switch (typeof value) {
                     case "string": 
-                        values += "'" + value.trim().replace("'", "''").replace(';', ',') + "'"
+                        values += "'" + value.trim().replace(/'/g, "''").replace(/;/g, ",").replace(/&#/g, "") + "'"
                         break;
                     case "number": 
                         values += value
@@ -90,4 +90,7 @@ module.exports = { convertToCreateSQL, convertToInsertSQL }
 /*
    Object.entries()
    https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries
+
+   How to Replace Multiple Words and Characters in JavaScript
+   https://muhimasri.com/blogs/how-to-replace-multiple-words-and-characters-in-javascript/
 */

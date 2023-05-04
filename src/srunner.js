@@ -56,22 +56,33 @@ const runValueSQL = (cmdText, lowerKeys=false) => {
 // Run multiple SQL Statements
 const runSQL = (cmdTextArray, singleStep=false) => {
     let result = null
-    if (singleStep) console.log('singleStep is true')
-    
-    try {
-        if (singleStep) {            
-            for (i=0; i<cmdTextArray.length; i++)
-                if (cmdTextArray[i].trim().length !==0) 
-                    result = db.prepare(cmdTextArray[i]).run()
-        } else {
-            result = db.exec(cmdTextArray.join(';'))
-        }
-        
-        return { success: true, result }   
-    } catch (err) {
-        return { success: false, error: err }
+    let rowsAffected = 0 
 
-    }
+    if (singleStep) console.log('> srunner.runSQL:singleStep is true')
+        if (singleStep) {            
+            for (i=0; i<cmdTextArray.length; i++) 
+                try {
+                    if (cmdTextArray[i].trim().length !==0) {
+                        result = db.prepare(cmdTextArray[i]).run()
+                        rowsAffected += result.changes                        
+                    }
+                } catch (err) 
+                {
+                    console.log(err)
+                    console.log(`> srunner.runSQL:cmdTextArray[${i}]="${cmdTextArray[i].trim()}"`)
+                    return { success: false, error: err }    
+                } 
+            return { success: true, rowsAffected }    
+        } else {
+            try {
+                result = db.exec(cmdTextArray.join(';'))
+                return { success: true, result }   
+            }
+            catch (err) {
+                console.log(err)
+                return { success: false, error: err }
+            }
+        }
 }
 
 // Run SQL Insert Statement and return the auto increment row id

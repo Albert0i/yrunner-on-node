@@ -29,6 +29,11 @@ POST http://localhost:8989/api/v2/cache/load/tbrelcod
 Content-Type: application/json
 Authorization: Bearer VEUdEii4n7nCvofaBRJEC
 
+### Load 
+POST http://localhost:8989/api/v2/cache/load/tbrelcod?_singleStep=true
+Content-Type: application/json
+Authorization: Bearer VEUdEii4n7nCvofaBRJEC
+
 
 ### unload 
 POST http://localhost:8989/api/v2/cache/unload/tbrelcod
