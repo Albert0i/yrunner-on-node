@@ -66,13 +66,10 @@ const convertToInsertSQL = (table, rows) => {
                 if (fields !== '') fields += ', '
                 fields += key.toLowerCase()
                 if (values !== '') values += ', '
-                // if ((typeof value)==='string')
-                //     values += "'" + value.trim().replace("'", "''") + "'"
-                // else
-                //     values += value
+
                 switch (typeof value) {
                     case "string": 
-                        values += "'" + value.trim().replace("'", "''") + "'"
+                        values += "'" + value.trim().replace("'", "''").replace(';', ',') + "'"
                         break;
                     case "number": 
                         values += value
@@ -81,7 +78,7 @@ const convertToInsertSQL = (table, rows) => {
                         values += "'" + String(value) + "'"
                 }
             }            
-            sql += `INSERT INTO ${table} (${fields}) VALUES(${values});`
+            sql += `INSERT INTO ${table} (${fields}) VALUES(${values}); `
         }
 
         return sql 

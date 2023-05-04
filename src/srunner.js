@@ -54,10 +54,19 @@ const runValueSQL = (cmdText, lowerKeys=false) => {
 }
 
 // Run multiple SQL Statements
-const runSQL = (cmdTextArray) => {
+const runSQL = (cmdTextArray, singleStep=false) => {
+    let result = null
+    if (singleStep) console.log('singleStep is true')
+    
     try {
-        const result = db.exec(cmdTextArray.join(';'))
-
+        if (singleStep) {            
+            for (i=0; i<cmdTextArray.length; i++)
+                if (cmdTextArray[i].trim().length !==0) 
+                    result = db.prepare(cmdTextArray[i]).run()
+        } else {
+            result = db.exec(cmdTextArray.join(';'))
+        }
+        
         return { success: true, result }   
     } catch (err) {
         return { success: false, error: err }

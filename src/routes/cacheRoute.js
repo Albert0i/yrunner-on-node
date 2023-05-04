@@ -6,6 +6,7 @@ const { handle404 } = require('../middleware/handle404')
 const dbConfig = require('../config/dbConfig');
 const { convertToCreateSQL, convertToInsertSQL } = require('../utils/convertToSQL')
 const { getCachedItems, addItem, removeItem } = require('../cache')
+const url = require('url');
 
 router.post('/schema/:table', verifyPassphrase, async (req, res) => {
     const table = req.params.table.toLowerCase()
@@ -43,6 +44,9 @@ router.post('/status', verifyPassphrase, async (req, res) => {
 
 router.post('/load/:table', verifyPassphrase, async (req, res) => {
     const table = req.params.table.toLowerCase()
+    const query = url.parse(req.url,true).query
+    const _singleStep = query._singleStep
+
     // schema 
     const sql = schemaSQL.replace('myOwner', dbConfig.user).replace('myTable', table)
     const resultSchema = await runSelectSQL(sql, true)
@@ -54,7 +58,7 @@ router.post('/load/:table', verifyPassphrase, async (req, res) => {
         const resultData = await runSelectSQL(`SELECT * FROM ${table}`, true)
         const data = convertToInsertSQL(table, resultData.rows)
     
-        const result = addItem(req.params.table, schema, data)
+        const result = addItem(req.params.table, schema, data, _singleStep)
         
         res.status(result ? 200 : 400).json(result)
     } else {
