@@ -22,8 +22,14 @@ const convertToCreateSQL = (table, schema) => {
                     else 
                         line += 'INTEGER' 
                     break;
-                default:
-                  // code block
+                case 'TEXT': 
+                case 'DATE': 
+                case 'TIMESTAMP':
+                case 'TIMESTAMP(6)': 
+                    line += 'TEXT'
+                    break
+                default:                    
+                    line += schema[i].data_type
             }
             if (schema[i].position) 
             {
@@ -60,10 +66,20 @@ const convertToInsertSQL = (table, rows) => {
                 if (fields !== '') fields += ', '
                 fields += key.toLowerCase()
                 if (values !== '') values += ', '
-                if ((typeof value)==='string')
-                    values += "'" + value.trim().replace("'", "''") + "'"
-                else
-                    values += value
+                // if ((typeof value)==='string')
+                //     values += "'" + value.trim().replace("'", "''") + "'"
+                // else
+                //     values += value
+                switch (typeof value) {
+                    case "string": 
+                        values += "'" + value.trim().replace("'", "''") + "'"
+                        break;
+                    case "number": 
+                        values += value
+                        break;
+                    default:
+                        values += "'" + String(value) + "'"
+                }
             }            
             sql += `INSERT INTO ${table} (${fields}) VALUES(${values});`
         }
