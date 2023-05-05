@@ -10,6 +10,7 @@ const { router : cacheRoute } = require('./routes/cacheRoute')
 const { router : yrunnerRouteV2 } = require('./routes/yrunnerRouteV2')
 const { handle404 } = require('./middleware/handle404')
 const { showBanners } = require('./utils/showBanners')
+const { info } = require('./utils/info')
 const { startCache } = require('./cache')
 
 const app = express()
@@ -37,8 +38,12 @@ app.all('/*', handle404)
 
 app.listen(process.env.SERVER_PORT, () => {
     console.log(`Server started on ${process.env.SERVER_PORT}...`)    
-    showBanners()
-    startCache(path.join(__dirname, 'data', 'db.sqlite'), null)
+    console.log(info())
+    showBanners()    
+    if (Boolean(process.env.YR2CACHE))
+      startCache(path.join(__dirname, 'data', 'db.sqlite'), null)
+    else 
+      console.log('YR2 Cache is off')
 })
 
 /*
@@ -57,7 +62,12 @@ app.listen(process.env.SERVER_PORT, () => {
    YRunner ─ The Accidental HA
    https://github.com/Albert0i/misdoc/blob/main/YRTAHA.md
 
+   PM2 change cluster processes size at runtime
+   https://stackoverflow.com/questions/29319420/pm2-change-cluster-processes-size-at-runtime
+
+   PM2 | Cluster Mode
+   https://pm2.keymetrics.io/docs/usage/cluster-mode/
+
    The Mystery of Marie Rogêt
    https://poemuseum.org/the-mystery-of-marie-roget/
-
 */

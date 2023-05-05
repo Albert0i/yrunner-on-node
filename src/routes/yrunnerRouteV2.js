@@ -16,25 +16,25 @@ const url = require('url');
 router.post('/runselectsql', verifyPassphrase, verifyCmdText, async (req, res) => {
     const result = await runSelectSQL(req.body.cmdText, req.body.lowerKeys)
 
-    res.status(result.success ? 200 : 400).json(result)
+    res.status(result.success ? 200 : 400).json({...result, pid: process.pm_id})
 })
 
 router.post('/runvaluesql', verifyPassphrase, verifyCmdText, async (req, res) => {
     const result = await runValueSQL(req.body.cmdText, req.body.lowerKeys)
 
-    res.status(result.success ? 200 : 400).json(result)
+    res.status(result.success ? 200 : 400).json({...result, pid: process.pm_id})
 })
 
 router.post('/runsql', verifyPassphrase, verifyCmdTextArray, async (req, res) => {
     const result = await runSQL(req.body.cmdTexts)
 
-    res.status(result.success ? 200 : 400).json(result)
+    res.status(result.success ? 200 : 400).json({...result, pid: process.pm_id})
 })
 
 router.post('/runinsertsqlyieldrowid', verifyPassphrase, verifyCmdTextInsert, async (req, res) => {
     const result = await runInsertSQLYieldRowID(req.body.cmdText, req.body.id)
 
-    res.status(result.success ? 201 : 400).json(result)
+    res.status(result.success ? 201 : 400).json({...result, pid: process.pm_id})
 })
 
 /*
@@ -74,8 +74,13 @@ router.get('/:table', verifyPassphrase, async (req, res) => {
     else
         result = await runSelectSQL(cmdText, _lowerKeys)
 
-    res.status(result.success ? 200 : 400).json({cmdText, ...result, isCached: isCached(table)})
-})
+    res.status(result.success ? 200 : 400).json({
+        cmdText, 
+        ...result, 
+        isCached: 
+        isCached(table), 
+        pid: process.pid})
+    })
 
 // Get one 
 router.get('/:table/:key', verifyPassphrase, async (req, res) => {
@@ -101,7 +106,8 @@ router.get('/:table/:key', verifyPassphrase, async (req, res) => {
         cmdText, 
         success: result.success, 
         row: (result.rows[0] ? result.rows[0] : null), 
-        isCached: isCached(table)
+        isCached: isCached(table), 
+        pid: process.pid
     })
 })
 
@@ -129,9 +135,19 @@ router.post('/:table', verifyPassphrase, async (req, res) => {
         cacheResult = runSQLFromCache([cmdText])
         if (!cacheResult.success)
             console.log(cacheResult)
-        return res.status(result.success ? 201 : 400).json({cmdText, ...result, cacheInsert: cacheResult.success})    
+        return res.status(result.success ? 201 : 400).json({
+            cmdText, 
+            ...result, 
+            cacheInsert: 
+            cacheResult.success, 
+            id: process.pid
+        })    
     }
-    res.status(result.success ? 201 : 400).json({cmdText, ...result})
+    res.status(result.success ? 201 : 400).json({
+        cmdText, 
+        ...result, 
+        id: process.pid
+    })
 })
 
 // Update one
@@ -158,9 +174,18 @@ router.patch('/:table/:key', verifyPassphrase, async (req, res) => {
         cacheResult = runSQLFromCache([cmdText])
         if (!cacheResult.success)
             console.log(cacheResult)
-        return res.status(result.success ? 201 : 400).json({cmdText, ...result, cacheUpdate: cacheResult.success})    
+        return res.status(result.success ? 201 : 400).json({
+            cmdText, 
+            ...result, 
+            cacheUpdate: cacheResult.success,
+            id: process.pid
+        })    
     }
-    res.status(result.success ? 200 : 400).json({cmdText, ...result})
+    res.status(result.success ? 200 : 400).json({
+        cmdText, 
+        ...result,
+        id: process.pid
+    })
 })
 
 // Delete one 
@@ -180,9 +205,18 @@ router.delete('/:table/:key', verifyPassphrase, async (req, res) => {
         cacheResult = runSQLFromCache([cmdText])
         if (!cacheResult.success)
             console.log(cacheResult)
-        return res.status(result.success ? 201 : 400).json({cmdText, ...result, cacheDelete: cacheResult.success})    
+        return res.status(result.success ? 201 : 400).json({
+            cmdText, 
+            ...result, 
+            cacheDelete: cacheResult.success,
+            id: process.pid
+        })    
     }
-    res.status(result.success ? 200 : 400).json({cmdText, ...result})
+    res.status(result.success ? 200 : 400).json({
+        cmdText, 
+        ...result,
+        id: process.pid
+    })
 })
 
 router.all('/*', handle404)
