@@ -7,6 +7,7 @@
     "dev": "nodemon src/server.js",
     "sqlite": "sqlite3 src/data/db.sqlite",    
     "api": "pm2 start ecosystem.config.js", 
+    "start": "pm2 start src/server.js --name api-gateway",
     "list": "pm2 list", 
     "logs": "pm2 logs api-gateway --lines 999", 
     "scale1": "pm2 scale api-gateway 1",

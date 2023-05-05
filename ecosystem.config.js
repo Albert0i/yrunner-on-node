@@ -3,11 +3,8 @@ module.exports = {
     name   : "api-gateway",
     script : "./src/server.js",
     watch  : true,
-    instances: 2, 
+    instances: 1, 
     exec_mode: "cluster", 
-    increment_var: "SERVER_PORT", 
-    env: {
-            NODE_ENV: "production"
-         }
+    increment_var: "SERVER_PORT"
   }]
 }
