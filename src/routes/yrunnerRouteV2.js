@@ -16,25 +16,25 @@ const url = require('url');
 router.post('/runselectsql', verifyPassphrase, verifyCmdText, async (req, res) => {
     const result = await runSelectSQL(req.body.cmdText, req.body.lowerKeys)
 
-    res.status(result.success ? 200 : 400).json({...result, pid: process.pm_id})
+    res.status(result.success ? 200 : 400).json({...result, pid: process.env.NODE_APP_INSTANCE})
 })
 
 router.post('/runvaluesql', verifyPassphrase, verifyCmdText, async (req, res) => {
     const result = await runValueSQL(req.body.cmdText, req.body.lowerKeys)
 
-    res.status(result.success ? 200 : 400).json({...result, pid: process.pm_id})
+    res.status(result.success ? 200 : 400).json({...result, pid: process.env.NODE_APP_INSTANCE})
 })
 
 router.post('/runsql', verifyPassphrase, verifyCmdTextArray, async (req, res) => {
     const result = await runSQL(req.body.cmdTexts)
 
-    res.status(result.success ? 200 : 400).json({...result, pid: process.pm_id})
+    res.status(result.success ? 200 : 400).json({...result, pid: process.env.NODE_APP_INSTANCE})
 })
 
 router.post('/runinsertsqlyieldrowid', verifyPassphrase, verifyCmdTextInsert, async (req, res) => {
     const result = await runInsertSQLYieldRowID(req.body.cmdText, req.body.id)
 
-    res.status(result.success ? 201 : 400).json({...result, pid: process.pm_id})
+    res.status(result.success ? 201 : 400).json({...result, pid: process.env.NODE_APP_INSTANCE})
 })
 
 /*
@@ -79,8 +79,9 @@ router.get('/:table', verifyPassphrase, async (req, res) => {
         ...result, 
         isCached: 
         isCached(table), 
-        pid: process.pid})
+        pid: process.env.NODE_APP_INSTANCE
     })
+})
 
 // Get one 
 router.get('/:table/:key', verifyPassphrase, async (req, res) => {
@@ -107,7 +108,7 @@ router.get('/:table/:key', verifyPassphrase, async (req, res) => {
         success: result.success, 
         row: (result.rows[0] ? result.rows[0] : null), 
         isCached: isCached(table), 
-        pid: process.pid
+        pid: process.env.NODE_APP_INSTANCE
     })
 })
 
@@ -140,13 +141,13 @@ router.post('/:table', verifyPassphrase, async (req, res) => {
             ...result, 
             cacheInsert: 
             cacheResult.success, 
-            id: process.pid
+            pid: process.env.NODE_APP_INSTANCE
         })    
     }
     res.status(result.success ? 201 : 400).json({
         cmdText, 
         ...result, 
-        id: process.pid
+        pid: process.env.NODE_APP_INSTANCE
     })
 })
 
@@ -178,13 +179,13 @@ router.patch('/:table/:key', verifyPassphrase, async (req, res) => {
             cmdText, 
             ...result, 
             cacheUpdate: cacheResult.success,
-            id: process.pid
+            pid: process.env.NODE_APP_INSTANCE
         })    
     }
     res.status(result.success ? 200 : 400).json({
         cmdText, 
         ...result,
-        id: process.pid
+        pid: process.env.NODE_APP_INSTANCE
     })
 })
 
@@ -209,13 +210,13 @@ router.delete('/:table/:key', verifyPassphrase, async (req, res) => {
             cmdText, 
             ...result, 
             cacheDelete: cacheResult.success,
-            id: process.pid
+            pid: process.env.NODE_APP_INSTANCE
         })    
     }
     res.status(result.success ? 200 : 400).json({
         cmdText, 
         ...result,
-        id: process.pid
+        pid: process.env.NODE_APP_INSTANCE
     })
 })
 
