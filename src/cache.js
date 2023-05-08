@@ -65,49 +65,6 @@ const startCache = (filename='db.sqlite', options) => {
     console.log(`Number of cached item${cachedItems.length>1?'s':''} ${cachedItems.length>1?'are':'is'} ${cachedItems.length}.`)
 }
 
-// const startCache = (filename='db.sqlite', options) => {
-//     const db = openDb(filename, options)
-//     let result = null
-//     let itemResult = null
-//     let itemRemoved = false
-//     console.log(db)
-
-//     result = runSelectSQL("SELECT * FROM __cache__", true)
-//     if (result.success) {
-//         cachedItems = result.rows
-        
-//         // Sanity check... 
-//         for (i=0; i< cachedItems.length; i++)
-//         {
-//             itemResult = runSQL([`SELECT 1 FROM ${cachedItems[i].tabname} LIMIT 1`])
-//             if (itemResult.success) 
-//                 console.log(`${cachedItems[i].tabname} is OK`)
-//             else {                
-//                 // if no such table, remove it from __cache__
-//                 itemResult = runSQL([`DELETE FROM __cache__ WHERE tabname='${cachedItems[i].tabname}'`])                
-//                 if (! itemResult.success)
-//                     console.log(itemResult)
-//                     itemRemoved = true;
-//             }            
-//         }
-//         // Reload cached items... 
-//         if (itemRemoved) 
-//         {
-//             result = runSelectSQL("SELECT * FROM __cache__", true)
-//             if (result.success)
-//                 cachedItems = result.rows
-//         }
-//     }    
-//     else {
-//         console.log(result)
-//         // Try to re-create __cache__ table... 
-//         const newResult = runSQL(["CREATE TABLE __cache__ ( tabname CHAR(40), crtdate NUMERIC(8, 0), crttime NUMERIC(6,0), CONSTRAINT __cache__pk PRIMARY KEY (tabname) );"])
-//         console.log(newResult)
-//     }
-
-//     console.log(`Number of cached item${cachedItems.length>1?'s':''} ${cachedItems.length>1?'are':'is'} ${cachedItems.length}.`)
-// }
-
 const getCachedItems = () => {
     return cachedItems
 }

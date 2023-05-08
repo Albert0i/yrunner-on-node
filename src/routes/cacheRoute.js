@@ -39,7 +39,7 @@ router.post('/schema/:table/data', verifyPassphrase, async (req, res) => {
 
 router.post('/status', verifyPassphrase, async (req, res) => {
     const result = getCachedItems()    
-    res.status(200).json({...result, pm_id: process.env.pm_id})
+    res.status(200).json(result)
 })
 
 router.post('/load/:table', verifyPassphrase, async (req, res) => {
@@ -71,7 +71,7 @@ router.post('/load/:table', verifyPassphrase, async (req, res) => {
 router.post('/unload/:table', verifyPassphrase, async (req, res) => {
     const result = removeItem(req.params.table.toLowerCase())
 
-    res.status(result ? 200 : 400).json({result, pm_id: process.env.pm_id})
+    res.status(result ? 200 : 400).json({...result, pm_id: process.env.pm_id})
 })
 
 
