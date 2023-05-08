@@ -11,6 +11,7 @@ const { router : yrunnerRouteV2 } = require('./routes/yrunnerRouteV2')
 const { handle404 } = require('./middleware/handle404')
 const { showBanners } = require('./utils/showBanners')
 const { startCache } = require('./cache')
+const { toBoolean } = require('./utils/toBoolean')
 
 const app = express()
 app.use(express.json());
@@ -39,7 +40,7 @@ app.listen(process.env.SERVER_PORT, () => {
     console.log(`Server started on ${process.env.SERVER_PORT}`, 
                  process.env.pm_id? `, instance id is ${process.env.pm_id}`:'')    
     showBanners()
-    if (process.env.YR2CACHE)
+    if (toBoolean(process.env.YR2CACHE))
       startCache(path.join(__dirname, 'data', 'db.sqlite'), null)
     else 
       console.log('YR2 Cache is OFF')

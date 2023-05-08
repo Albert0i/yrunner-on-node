@@ -33,6 +33,8 @@ NODE_ORACLEDB_CONNECTIONSTRING=localhost/XEPDB1
 
 PASSPHRASE=VEUdEii4n7nCvofaBRJEC
 DELAY404=10000
+
+YR2CACHE=true
 ```
 
 6. Run `npm run dev` to start the gateway. 
@@ -166,6 +168,12 @@ By insulating applications and databases, an API gateway effectively decouples f
 
 Lastly, by dint of [WebClient Class](https://learn.microsoft.com/en-us/dotnet/api/system.net.webclient?view=net-7.0) and [Newtonsoft.Json](https://www.newtonsoft.com/json) package, classic ASP.NET application can work with with API gateway too. Please check [here](https://github.com/Albert0i/yrunner-on-node/blob/main/oic/WebClient1.aspx.cs) for an example. 
 
+![alt screen1](img/screen1.jpg)
+
+![alt screen2](img/screen2.jpg)
+
+![alt screen3](img/screen3.jpg)
+
 
 ### V. Reference
 
@@ -191,4 +199,4 @@ varying is invarient.
 ```
 
 
-### EOF (2023/04/20)
+### EOF (2023/05/08)
