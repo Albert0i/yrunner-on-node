@@ -106,20 +106,14 @@ const logger = (cmdText) => {
 module.exports = { openDb, runSelectSQL, runValueSQL, runSQL, runInsertSQLYieldRowID } 
 
 /*
-   better-sqlite3
-   https://www.npmjs.com/package/better-sqlite3
-
-   CREATE TABLE __cache__ (
-        tabname CHAR(40),
-        crtdate NUMERIC(8, 0),
-        crttime NUMERIC(6,0),
-
-        CONSTRAINT __cache__pk PRIMARY KEY (tabname)
+   CREATE TABLE people (
+        person_id INTEGER PRIMARY KEY AUTOINCREMENT,
+        first_name text NOT NULL,
+        last_name text NOT NULL
    );
-
-   INSERT INTO __cache__ (tabname, crtdate, crttime) VALUES('table1', 1, 2);
-   INSERT INTO __cache__ (tabname, crtdate, crttime) VALUES('table2', 3, 4);
-   INSERT INTO __cache__ (tabname, crtdate, crttime) VALUES('table3', 5, 6);
-   INSERT INTO __cache__ (tabname, crtdate, crttime) VALUES('table4', 7, 8);
-   INSERT INTO __cache__ (tabname, crtdate, crttime) values('table5', 9, 10);
+   INSERT INTO people (first_name,last_name) VALUES('John','Smith');
+   INSERT INTO people (first_name,last_name) VALUES('William','Wilson');
+   INSERT INTO people (first_name,last_name) VALUES('Ian','Murdok');
+   INSERT INTO people (first_name,last_name) VALUES('Peter','Pan');
+   INSERT INTO people (first_name,last_name) VALUES('Allison','Duvar');
 */

@@ -13,7 +13,7 @@ router.post('/schema/:table', verifyPassphrase, async (req, res) => {
     const sql = schemaSQL.replace('myOwner', dbConfig.user).replace('myTable', table)
     const result = await runSelectSQL(sql, true)
 
-    res.status(result.success ? 200 : 400).json(result)
+    res.status(result.success ? 200 : 400).json({...result, pm_id: process.env.pm_id})
 })
 
 router.post('/schema/:table/sqlite', verifyPassphrase, async (req, res) => {
@@ -22,9 +22,9 @@ router.post('/schema/:table/sqlite', verifyPassphrase, async (req, res) => {
     const result = await runSelectSQL(sql, true)
 
     if (result.success)
-        res.status(200).json({ success: true, sql: convertToCreateSQL(table, result.rows)})
+        res.status(200).json({ success: true, sql: convertToCreateSQL(table, result.rows), pm_id: process.env.pm_id})
     else 
-        res.status(400).json(result)
+        res.status(400).json({...result, pm_id: process.env.pm_id})
 })
 
 router.post('/schema/:table/data', verifyPassphrase, async (req, res) => {
@@ -32,14 +32,14 @@ router.post('/schema/:table/data', verifyPassphrase, async (req, res) => {
     const result = await runSelectSQL(`SELECT * FROM ${table}`, true)
     
     if (result.success) 
-        res.status(200).json({ success: true, sql: convertToInsertSQL(table, result.rows)})
+        res.status(200).json({ success: true, sql: convertToInsertSQL(table, result.rows), pm_id: process.env.pm_id})
     else 
-        res.status(400).json(result)
+        res.status(400).json({...result, pm_id: process.env.pm_id})
 })
 
 router.post('/status', verifyPassphrase, async (req, res) => {
     const result = getCachedItems()    
-    res.status(200).json(result)
+    res.status(200).json({...result, pm_id: process.env.pm_id})
 })
 
 router.post('/load/:table', verifyPassphrase, async (req, res) => {
@@ -60,9 +60,9 @@ router.post('/load/:table', verifyPassphrase, async (req, res) => {
     
         const result = addItem(req.params.table, schema, data, _singleStep)
         
-        res.status(result ? 200 : 400).json(result)
+        res.status(result ? 200 : 400).json({...result, pm_id: process.env.pm_id})
     } else {
-        res.status(400).json({ success: false, message: "ORA-00942: table or view does not exist"})
+        res.status(400).json({ success: false, message: "ORA-00942: table or view does not exist", pm_id: process.env.pm_id})
     }
 
     
@@ -71,7 +71,7 @@ router.post('/load/:table', verifyPassphrase, async (req, res) => {
 router.post('/unload/:table', verifyPassphrase, async (req, res) => {
     const result = removeItem(req.params.table.toLowerCase())
 
-    res.status(result ? 200 : 400).json(result)
+    res.status(result ? 200 : 400).json({result, pm_id: process.env.pm_id})
 })
 
 

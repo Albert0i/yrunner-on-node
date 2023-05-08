@@ -78,7 +78,7 @@ const startCache = (filename='db.sqlite', options) => {
         {
             itemResult = runSQL([`SELECT 1 FROM ${cachedItems[i].tabname} LIMIT 1`])
             if (itemResult.success) 
-                console.log(`${cachedItems[i].tabname} is ok`)
+                console.log(`${cachedItems[i].tabname} is OK`)
             else {                
                 // if no such table, remove it from __cache__
                 itemResult = runSQL([`DELETE FROM __cache__ WHERE tabname='${cachedItems[i].tabname}'`])                
