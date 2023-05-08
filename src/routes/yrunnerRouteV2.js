@@ -62,7 +62,7 @@ router.get('/:table', verifyPassphrase, async (req, res) => {
     
     //const result = await runSelectSQL(cmdText, _lowerKeys)
     let result = null
-    if (isCached(table)) {
+    if (process.env.YR2CACHE && isCached(table)) {
         cmdText = `SELECT * FROM ${table} ` +
                    (query._filter? `WHERE ${_filter} ` : ' ') + 
                    (query._sort? `ORDER BY ${_sort} ` : ' ') +
@@ -98,7 +98,7 @@ router.get('/:table/:key', verifyPassphrase, async (req, res) => {
     
     //const result = await runSelectSQL(cmdText, _lowerKeys)
     let result = null;
-    if (isCached(table))
+    if (process.env.YR2CACHE && isCached(table))
         result = runSelectSQLFromCache(cmdText, _lowerKeys)
     else
         result = await runSelectSQL(cmdText, _lowerKeys)
@@ -132,7 +132,7 @@ router.post('/:table', verifyPassphrase, async (req, res) => {
         return res.status(200).json({cmdText})
 
     const result = await runSQL([cmdText])
-    if (isCached(table)) {
+    if (process.env.YR2CACHE && isCached(table)) {
         cacheResult = runSQLFromCache([cmdText])
         if (!cacheResult.success)
             console.log(cacheResult)

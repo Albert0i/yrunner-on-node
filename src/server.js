@@ -38,8 +38,8 @@ app.all('/*', handle404)
 app.listen(process.env.SERVER_PORT, () => {
     console.log(`Server started on ${process.env.SERVER_PORT}`, 
                  process.env.pm_id? `, instance id is ${process.env.pm_id}`:'')    
-    showBanners()    
-    if (Boolean(process.env.YR2CACHE))
+    showBanners()
+    if (process.env.YR2CACHE)
       startCache(path.join(__dirname, 'data', 'db.sqlite'), null)
     else 
       console.log('YR2 Cache is OFF')
