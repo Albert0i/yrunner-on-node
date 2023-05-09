@@ -2,7 +2,7 @@ module.exports = {
   apps : [{
     name   : "api-gateway",
     script : "./src/server.js",
-    autorestart: false, 
+    autorestart: true, 
     instances: 4, 
     exec_mode: "cluster",
     env: {
