@@ -54,6 +54,12 @@ check [here](https://github.com/Albert0i/sqlite-server.git)
 ### IV. Summary 
 A year ago, an experimental version of YRunner was designed and implemented in an effort to [Caching SQL results with Redis](https://github.com/Albert0i/misdoc/blob/main/CSRWR.md). As performance continues to be an issue and so does the cache. If there is no difference in reading remote and local database, why bother to stack up one more layer to the code? 
 
+![alt screen4](img/screen4.jpg)
+
+![alt screen5](img/screen5.jpg)
+
+![alt screen6](img/screen6.jpg)
+
 
 ### V. Reference
 1. [SQLite](https://www.sqlite.org/index.html)
@@ -73,4 +79,4 @@ A year ago, an experimental version of YRunner was designed and implemented in a
 ```
 
 
-### EOF (2023/05/03)
+### EOF (2023/05/10)
