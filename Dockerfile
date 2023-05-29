@@ -5,7 +5,7 @@ ENV NODE_VERSION=18.16.0
 WORKDIR /app
 COPY package.json .
  
-ENV PATH="C:\Windows\system32;C:\Windows;C:\app\node-v18.16.0-win-x64;C:\app\client\bin"
+ENV PATH="C:\Windows\system32;C:\Windows;C:\app\client\bin;C:\app\node-v18.16.0-win-x64;"
  
 # because we don't have PowerShell, we will install using CURL and TAR
 # running one command reduced the size form 1.08 GB to ~765 MB on NanoServer:1903
