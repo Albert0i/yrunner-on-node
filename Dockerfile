@@ -39,7 +39,7 @@ CMD [ "node.exe", "c:\\app\\server"]
 #    https://kevinsaye.wordpress.com/2019/08/06/running-a-node-angular-application-in-a-container-based-on-windows-nano-server/
 #
 # docker build -t albert0i/yrunner-on-node:1.0 . --no-cache
-# docker run --name yrunner --rm --env-file .env -d -p 8989:8989 -v H:\aNewbie\yrunner-on-node\src\data:c:\app\data albert0i/yrunner-on-node:1.0
+# docker run --name yrunner --rm --env-file .env -d -p 8989:8989 -v H:\aNewbie\yrunner-on-node\src\data:c:\app\data -v H:\aNewbie\yrunner-on-node\src\logs:c:\app\logs albert0i/yrunner-on-node:1.0
 #
 # docker exec -it yrunner cmd
 # docker container stop yrunner
