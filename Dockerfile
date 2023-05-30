@@ -38,8 +38,8 @@ CMD [ "node.exe", "c:\\app\\server"]
 # 3. Running a Node / Angular Application in a container based on Windows Nano Server
 #    https://kevinsaye.wordpress.com/2019/08/06/running-a-node-angular-application-in-a-container-based-on-windows-nano-server/
 #
-# docker build -t albert0i/yrunner-on-node . --no-cache
-# docker run --name yrunner --rm --env-file .env -d -p 8989:8989 -v H:\aNewbie\yrunner-on-node\src\data:c:\app\data albert0i/yrunner-on-node
+# docker build -t albert0i/yrunner-on-node:1.0 . --no-cache
+# docker run --name yrunner --rm --env-file .env -d -p 8989:8989 -v H:\aNewbie\yrunner-on-node\src\data:c:\app\data albert0i/yrunner-on-node:1.0
 #
 # docker exec -it yrunner cmd
 # docker container stop yrunner
