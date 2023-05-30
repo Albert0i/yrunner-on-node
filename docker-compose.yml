@@ -1,19 +1,17 @@
-version: "3"
+﻿version: "3"
 services:
 
   nginx:
     image: 
       ${NGINX_IMAGE_NAME}:${NGINX_IMAGE_VERSION}
-    container_name: 
-        nginx 
     ports:
       - "8989:8989"
     volumes:
       - ${NGINX_CONF_DIR}:C:\nginx\conf
     depends_on:
-      - yrunner-on-node 
+      - yrunner
 
-  yrunner-on-node:
+  yrunner:
     build: 
       context: .
     image: 
@@ -21,6 +19,8 @@ services:
     volumes:
       - ${DATA_DIR}:C:\app\data
       - ${LOG_DIR}:C:\app\logs
+    deploy:
+      replicas: 1   
     env_file: .env
 
 

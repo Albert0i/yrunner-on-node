@@ -34,7 +34,7 @@ build:
 # start the server
 #
 up:
-	docker-compose up -d --remove-orphans --scale yrunner-on-node=2
+	docker-compose up -d --remove-orphans
 
 #
 # stop the server
