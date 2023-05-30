@@ -20,9 +20,8 @@ services:
       - ${DATA_DIR}:C:\app\data
       - ${LOG_DIR}:C:\app\logs
     deploy:
-      replicas: 1
+      replicas: 2
     env_file: .env
-
 
 #
 # buiid:  
