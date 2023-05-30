@@ -1,15 +1,13 @@
 FROM mcr.microsoft.com/windows/servercore:20H2
 
-ENV NODE_VERSION=18.16.0
-USER ContainerAdministrator
-
 WORKDIR /app
 COPY package.json .
- 
+
+# Add NodeJS and Oracle library to search path 
 ENV PATH="C:\Windows\system32;C:\Windows;C:\app\node-v18.16.0-win-x64;C:\app\instantclient_19_19;"
  
 # because we don't have PowerShell, we will install using CURL and TAR
-# 1. NodeJS 18.16.0
+# 1. NodeJS, Version 18.16.0
 # 2. Install NPM packages 
 # 3. Microsoft Visual Studio 2017 Redistributable
 # 4. Oracle Instant Client Downloads for Microsoft Windows (x64) 64-bit, Version 19.19.0.0.0
@@ -28,10 +26,8 @@ RUN curl.exe -o node-v18.16.0-win-x64.zip -L https://nodejs.org/dist/v18.16.0/no
 
 COPY src .
 
-ENV PORT 8989
-EXPOSE $PORT
+EXPOSE 8989
 CMD [ "node.exe", "c:\\app\\server"]
-
 
 # 
 # Reference:
@@ -47,7 +43,8 @@ CMD [ "node.exe", "c:\\app\\server"]
 #
 # docker exec -it yrunner cmd
 # docker container stop yrunner
-#
+# docker image history albert0i/yrunner-on-node  
+# 
 
 #
 # (2023/05/30)
