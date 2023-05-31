@@ -124,11 +124,11 @@ LOG_DIR=C:\Docker\yrunner-on-node\src\logs
 
 
 ### IV. Summary 
-NodeJS is best known for it's small, fast and swift. Whereas the code size, which includes libraries and packages, is around 226KB, but the output image is 6.11G! 
+NodeJS is best known for it's ease to host because of small, fast and swift. Whereas the code size here, which includes libraries and packages, is around 226KB, but the output image is 6.11G! 
 
-"What's the point ?!" you may ask. 
+"**What's the point ?!**" you may ask. 
 
-Well, whether it's worthwhile or worthless to dockerize in this way is completely up to you... at your disposal... I don't know.
+Well, whether it's worthwhile or worthless to dockerize in this way is completely up to you... at your disposal... at your own risk... I don't know.
 
 
 ### V. Reference
