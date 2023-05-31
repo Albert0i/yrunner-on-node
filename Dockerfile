@@ -8,10 +8,10 @@ ENV PATH="C:\Windows\system32;C:\Windows;C:\app\node-v18.16.0-win-x64;C:\app\ins
  
 # because we don't have PowerShell, we will install using CURL and TAR
 # 1. NodeJS, Version 18.16.0
-# 2. Install NPM packages 
+# 2. Install required NPM packages 
 # 3. Microsoft Visual Studio 2017 Redistributable
 # 4. Oracle Instant Client Downloads for Microsoft Windows (x64) 64-bit, Version 19.19.0.0.0
-# can't load Oracle library on servercore:20H2.
+# can't load Oracle library on nanoserver:20H2.
 # running on servercore:20H is ~ 6 GB !!!
 RUN curl.exe -o node-v18.16.0-win-x64.zip -L https://nodejs.org/dist/v18.16.0/node-v18.16.0-win-x64.zip && \
     tar.exe -xf node-v18.16.0-win-x64.zip && \
@@ -47,5 +47,5 @@ CMD [ "node.exe", "c:\\app\\server"]
 # 
 
 #
-# (2023/05/30)
+# (2023/05/31)
 # 
