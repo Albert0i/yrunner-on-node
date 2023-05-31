@@ -64,6 +64,8 @@ CMD [ "node.exe", "c:\\app\\server"]
 
 ![alt yrunner-history](img/yrunner-history-1.JPG)
 
+![alt load-failed](img/yrunner-logs-1.JPG)
+
 
 ### II. docker-compose.yml
 To leverage our docker image, we need a `docker-compose` and `Makefile` file, so as to bring up the entire *ecology circle*. 
