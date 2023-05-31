@@ -1,27 +1,34 @@
 ## Another sequel to YON --- Dockerization
 
 
-### Prologue
-It was the very last day of May. The impending rainstorm enshrouded the whole city in high temperature, burning air inflicted much pain and itch on skin. Being quickly dehydrated but not even a small bead of sweat appeared on my forehead, I was weary and haggard yet rambling along the street. Heavy and rapid respirations were made and heard lest suffocation and drop dead instantly... 
+<div style="text-align: center; color:white; background-color:black"><em>
+...reading it from beginning to end without understanding a syllable, conceived the possibility of its being Chinese, and so re-read it from the end to the beginning, but with no more satisfactory result.
+</em></div>
 
-Previously, we've deployed `yrunner-on-node` using [PM2](https://pm2.keymetrics.io/) and this is the most easy and handy way, I think. This time, we are going to use [Docker](https://www.docker.com/), a far more difficult way.
+
+### Prologue
+It was the very last day of May. The impending rainstorm enshrouded the whole city in high temperature, burning air inflicted much pain and itch on skin. Being quickly dehydrated but not even a small bead of sweat appeared on my forehead, I was weary and haggard yet rambling along the street. Heavy and rapid respirations were made lest suffocation and drop dead instantaneously... 
+
+Previously, we've deployed `yrunner-on-node` using [PM2](https://pm2.keymetrics.io/) and this is the most easy and handy way, I think. This time, we are going to use [Docker](https://www.docker.com/), a far more difficult way to deploy our app.
 
 
 ### I. Dockerfile
-There exists pre-built [oraclelinux](https://hub.docker.com/_/oraclelinux) image serves this purpose. Windows containers are obfuscating and, in a way, obscure and opaque when comparing to Linux containers. We have to build every from scratch. Based on `nanoserver:20H2` or `servercore:20H2`, we need to install: 
+There exists pre-built [oraclelinux](https://hub.docker.com/_/oraclelinux) images which serve our purpose. Since we are using [Docker Desktop on Windows](https://docs.docker.com/desktop/install/windows-install/) to run Windows containers, the whole process became obfuscated and somewhat obscure and opaque. We are going to build from scratch. The base OS is either `nanoserver:20H2` or `servercore:20H2`. Software to includes are: 
 
 1. NodeJS, Version 18.16.0
 2. NPM packages 
 3. Microsoft Visual Studio 2017 Redistributable
 4. Oracle Instant Client for Microsoft Windows (x64) 64-bit
 
+![alt 19c-require](img/19c-require.JPG)
+
 ![alt load-failed](img/yrunner-error-1.JPG)
 
-As far as I can test, Oracle libraries can be loaded on `nanoserver:20H2`, it seems that the driver has *32-bits dependencies* which had been trimmed in order to reduce the size. Our last resort is falling back to `servercore:20H2`, which bloated the image size to more than 6 GB with a *successfully* ending!!!
+As far as I can test, Oracle libraries can be loaded on `nanoserver:20H2` image! It seems that the driver has *32-bits dependencies* or use some other 64-bits libraries not mentioned on the download page... Our last resort is to fall back to `servercore:20H2` image, which *effectively* bloated our image size!!!
 
 ![alt load-ok](img/yrunner-logs-1.JPG)
 
-The final version of our manuscript is like this: 
+The elaborated version of our manuscript is like this: 
 
 ```
 FROM mcr.microsoft.com/windows/servercore:20H2
@@ -47,6 +54,8 @@ COPY src .
 EXPOSE 8989
 CMD [ "node.exe", "c:\\app\\server"]
 ```
+
+![alt yrunner-history](img/yrunner-history-1.JPG)
 
 
 ### II. docker-compose.yml
@@ -110,9 +119,11 @@ LOG_DIR=C:\Docker\yrunner-on-node\src\logs
 
 
 ### IV. Summary 
-NodeJS is best known for it's small, fast and swift. Whereas the code size, which includes libraries and packages, is 226KB, the built image size for Windows container is 6.11G! 
+NodeJS is best known for it's small, fast and swift. Whereas the code size, which includes libraries and packages, is around 226KB, but the output image is 6.11G! 
 
-Whether it's worthwhile or worthless to build and deploy in this way, I don't know. It's completely up to you... at your disposal... 
+"What's the point ?!" you may ask. 
+
+Well, whether it's worthwhile or worthless to dockerize in this way is completely up to you... at your disposal... I don't know.
 
 
 ### V. Reference
@@ -125,8 +136,12 @@ Whether it's worthwhile or worthless to build and deploy in this way, I don't kn
 
 
 ### Epilogue 
-```
-```
+<div>
+“The avenues to death are numerous and strange. A London paper mentions the decease of a person from a singular cause. He was playing at ‘puff the dart,’ which is played with a long needle inserted in some worsted, and blown at a target through a tin tube. He placed the needle at the wrong end of the tube, and drawing his breath strongly to puff the dart forward with force, drew the needle into his throat. It entered the lungs, and in a few days killed him.”
+</div>
+<div>
+通往死亡的道路眾多，千奇百怪。 一份倫敦報紙提到一個人死於單一原因。 他在玩“吹飛鏢”，這是用一根長針插入一些精紡毛衣，然後通過錫管朝目標吹。 他把針頭插錯了管子的一端，用力吸了一口氣，用力把飛鏢往前吹，把針頭刺進了喉嚨。 它進入肺部，並在幾天內殺死了他。
+</div>
 
 
 ### EOF (2023/05/31)
