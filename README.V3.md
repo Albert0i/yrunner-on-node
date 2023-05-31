@@ -58,6 +58,8 @@ EXPOSE 8989
 CMD [ "node.exe", "c:\\app\\server"]
 ```
 
+![alt yrunner-build](img/yrunner-build-1.JPG)
+
 ![alt yrunner-history](img/yrunner-history-1.JPG)
 
 
