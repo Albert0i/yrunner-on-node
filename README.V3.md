@@ -16,7 +16,7 @@ Previously, we've deployed `yrunner-on-node` using [PM2](https://pm2.keymetrics.
 
 
 ### I. Dockerfile
-There exists pre-built [oraclelinux](https://hub.docker.com/_/oraclelinux) images which serve our purpose. Since we are using [Docker Desktop on Windows](https://docs.docker.com/desktop/install/windows-install/) to run Windows containers, the whole process became obfuscated and somewhat obscure and opaque. We are going to build from scratch. The base OS is either `nanoserver:20H2` or `servercore:20H2`. Software to includes are: 
+There exists pre-built [oraclelinux](https://hub.docker.com/_/oraclelinux) images which serve our purpose. Since we are using [Docker Desktop on Windows](https://docs.docker.com/desktop/install/windows-install/) to run Windows containers, the whole process became obfuscated, somewhat obscure and opaque. We are going to build everything from scratch. The base OS is either `nanoserver:20H2` or `servercore:20H2`. Software to includes are: 
 
 1. NodeJS, Version 18.16.0
 2. NPM packages 
