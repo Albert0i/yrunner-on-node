@@ -31,7 +31,7 @@ There exists pre-built [oraclelinux](https://hub.docker.com/_/oraclelinux) image
 
 ![alt load-failed](img/yrunner-error-1.JPG)
 
-As far as I can test, Oracle libraries can be loaded on `nanoserver:20H2` image! It seems that the driver has *32-bits dependencies* or uses some other 32/64-bits libraries not mentioned on the download page... Our last resort is to fall back to `servercore:20H2` image, which *effectively* bloated up our image size!!!
+As far as I can test, Oracle libraries can NOT be loaded on `nanoserver:20H2` image! It seems that the driver has *32-bits dependencies* or uses some other 32/64-bits libraries not mentioned on the download page... Our last resort is to fall back to `servercore:20H2` image, which *effectively* bloated up our image size!!!
 
 ![alt load-ok](img/yrunner-logs-1.JPG)
 
