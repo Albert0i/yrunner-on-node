@@ -1,8 +1,11 @@
 ## Another sequel to YON --- Dockerization
 
 
-<div style="text-align: center; color:white; background-color:black"><em>
+<div style="text-align: right; color:white; background-color:black"><em>
 ...reading it from beginning to end without understanding a syllable, conceived the possibility of its being Chinese, and so re-read it from the end to the beginning, but with no more satisfactory result.
+<br /><br />
+The Angel of the Odd<br />
+Edgar Allan Poe
 </em></div>
 
 
@@ -136,11 +139,11 @@ Well, whether it's worthwhile or worthless to dockerize in this way is completel
 
 
 ### Epilogue 
-<div>
+<div style="text-align: left;">
 “The avenues to death are numerous and strange. A London paper mentions the decease of a person from a singular cause. He was playing at ‘puff the dart,’ which is played with a long needle inserted in some worsted, and blown at a target through a tin tube. He placed the needle at the wrong end of the tube, and drawing his breath strongly to puff the dart forward with force, drew the needle into his throat. It entered the lungs, and in a few days killed him.”
-</div>
-<div>
-通往死亡的道路眾多，千奇百怪。 一份倫敦報紙提到一個人死於單一原因。 他在玩“吹飛鏢”，這是用一根長針插入一些精紡毛衣，然後通過錫管朝目標吹。 他把針頭插錯了管子的一端，用力吸了一口氣，用力把飛鏢往前吹，把針頭刺進了喉嚨。 它進入肺部，並在幾天內殺死了他。
+<br /><br />
+The Angel of the Odd<br />
+Edgar Allan Poe
 </div>
 
 
