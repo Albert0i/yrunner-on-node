@@ -12,6 +12,8 @@ const { handle404 } = require('./middleware/handle404')
 const { showBanners } = require('./utils/showBanners')
 const { startCache } = require('./cache')
 const { toBoolean } = require('./utils/toBoolean')
+const cowsay = require("cowsay")
+const os = require('os')
 
 const app = express()
 app.use(express.json());
@@ -33,6 +35,17 @@ app.use('/api/v1/yr', yrunnerRoute)
 app.use('/api/v2/sr', srunnerRoute)
 app.use('/api/v2/cache', cacheRoute)
 app.use('/api/v2/yr', yrunnerRouteV2)
+
+// home page
+app.get('/', (req, res) => {
+  const msg = `Your hostname is ${os.hostname()}`
+
+  res.status(200).end(cowsay.say({
+    text : msg,
+    e : "oO",
+    T : "U "
+  }))
+})  
 
 app.all('/*', handle404)
 

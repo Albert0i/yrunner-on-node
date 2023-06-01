@@ -134,6 +134,19 @@ NodeJS is best known for it's ease to host because of small, fast and swift. Whe
 
 Well, whether it's worthwhile or worthless to dockerize in this way is completely up to you... at your disposal... at your own risk... I don't know.
 
+PS:
+As a finisning touch, I deliberately add a funny home page to server.js. Upon visiting: 
+```
+http://localhost:8989/
+```
+Refresh a few times by pressing F5:
+
+![alt hostnames](img/hostnames.JPG)
+
+Which match exactly to the container id. Which proves that load balancing is working fine. 
+
+![alt containernames](img/containernames.JPG)
+
 
 ### V. Reference
 1. [Oracle Instant Client Downloads for Microsoft Windows (x64) 64-bit](https://www.oracle.com/database/technologies/instant-client/winx64-64-downloads.html)
@@ -153,4 +166,4 @@ Edgar Allan Poe
 </div>
 
 
-### EOF (2023/05/31)
+### EOF (2023/06/01)
